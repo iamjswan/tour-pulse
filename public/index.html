@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live From The Internet — Conan Gray</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #070810;
+  --warm: #0c0d18;
+  --ink: #e8eaf6;
+  --ink2: #c5c8e8;
+  --ink3: #7880b0;
+  --ink4: #3d4268;
+  --rose: #6c63ff;
+  --rose-light: #130d2e;
+  --gold: #a78bfa;
+  --gold-light: #110d1f;
+  --sage: #818cf8;
+  --sage-light: #0d1024;
+  --border: rgba(232,234,246,0.1);
+  --border2: rgba(232,234,246,0.05);
+  --burgundy: #1a1540;
+  --deep: #040508;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  background-image: radial-gradient(ellipse at 20% 50%, #1a1040 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, #0d0a30 0%, transparent 50%);
+}
+
+/* HEADER */
+.header {
+  background: rgba(8,3,6,0.95);
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(108,99,255,0.2);
+  backdrop-filter: blur(10px);
+}
+.header-left { display: flex; align-items: baseline; gap: 1rem; }
+.wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+.wordmark em { font-style: normal; color: var(--rose); font-weight: 400; }
+.header-tag {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  font-weight: 500;
+}
+.last-run {
+  font-size: 11px;
+  color: var(--ink4);
+  letter-spacing: 0.06em;
+  font-family: 'Montserrat', sans-serif;
+}
+.last-run span { color: var(--sage); }
+
+/* SETUP BANNER */
+.setup-banner {
+  background: rgba(108,99,255,0.1);
+  border-bottom: 1px solid rgba(108,99,255,0.2);
+  padding: 0.9rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.setup-banner p { font-size: 13px; color: var(--ink2); }
+.setup-banner a { color: var(--rose); text-decoration: underline; cursor: pointer; }
+
+/* MAIN LAYOUT */
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 65px); }
+
+/* SIDEBAR */
+.sidebar {
+  background: rgba(12,13,24,0.98);
+  border-right: 1px solid rgba(108,99,255,0.15);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-section-title {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* API Keys */
+.key-row { margin-bottom: 10px; }
+.key-row label { display: block; font-size: 10px; color: var(--ink4); margin-bottom: 4px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; }
+.key-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-family: 'SF Mono', monospace;
+  color: var(--ink);
+  outline: none;
+}
+.key-input:focus { border-color: var(--rose); }
+
+/* City manager */
+.city-add { display: flex; gap: 6px; margin-bottom: 10px; }
+.city-input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: var(--ink);
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+.city-input:focus { border-color: var(--rose); }
+.btn-add {
+  background: var(--rose);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+}
+.btn-add:hover { background: #d43570; }
+
+.city-list { display: flex; flex-direction: column; gap: 4px; max-height: 340px; overflow-y: auto; }
+.city-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.city-item:hover { border-color: var(--ink4); background: rgba(255,255,255,0.05); }
+.city-item.active { border-color: var(--rose); background: rgba(232,67,122,0.1); }
+.city-item.active .city-name { color: var(--rose); font-weight: 500; }
+.city-name { font-size: 12px; color: var(--ink2); }
+.city-meta { display: flex; align-items: center; gap: 6px; }
+.city-count { font-size: 10px; color: var(--ink4); }
+.city-sync { font-size: 14px; color: var(--ink4); line-height: 1; cursor: pointer; padding: 0 2px; }
+.city-sync:hover { color: var(--rose); }
+.city-del { font-size: 16px; color: var(--ink4); line-height: 1; cursor: pointer; padding: 0 2px; }
+.city-del:hover { color: var(--rose); }
+
+/* Run button */
+.btn-run {
+  width: 100%;
+  background: linear-gradient(135deg, #e8437a, #c4285e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity 0.15s;
+}
+.btn-run:hover { opacity: 0.9; }
+.btn-run:disabled { background: var(--ink4); cursor: not-allowed; opacity: 0.5; }
+
+.run-status { font-size: 11px; color: var(--ink4); text-align: center; margin-top: 6px; min-height: 16px; letter-spacing: 0.04em; }
+.run-status.running { color: var(--rose); }
+.run-status.done { color: var(--sage); }
+.run-status.error { color: #ff6b6b; }
+
+.progress { height: 2px; background: var(--border); border-radius: 1px; margin-top: 6px; overflow: hidden; display: none; }
+.progress-fill { height: 100%; background: var(--rose); border-radius: 1px; transition: width 0.4s; }
+
+/* MAIN CONTENT */
+.main { padding: 2rem 2.5rem; overflow-y: auto; }
+
+/* Overview cards */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+.stat-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink4); margin-bottom: 6px; font-weight: 600; }
+.stat-value { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--ink); font-weight: 300; }
+.stat-sub { font-size: 11px; color: var(--ink4); margin-top: 2px; }
+
+/* City view */
+.city-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.city-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--ink); font-weight: 300; font-style: italic; }
+.city-title em { font-style: normal; color: var(--rose); }
+.city-date { font-size: 11px; color: var(--ink4); letter-spacing: 0.04em; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.tab {
+  font-size: 10px;
+  color: var(--ink4);
+  padding: 8px 18px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tab.active { color: var(--rose); border-bottom-color: var(--rose); }
+.tab:hover { color: var(--ink2); }
+
+/* Content panels */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* Songs */
+.songs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.song-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.song-rank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  color: var(--ink4);
+  min-width: 28px;
+  font-weight: 300;
+}
+.song-info { flex: 1; min-width: 0; }
+.song-name { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-artist { font-size: 11px; color: var(--ink4); margin-top: 2px; }
+.song-bar-wrap { margin-top: 6px; }
+.song-bar { height: 2px; background: var(--border2); border-radius: 2px; }
+.song-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), var(--gold)); }
+.song-uses { font-size: 10px; color: var(--ink4); margin-top: 3px; letter-spacing: 0.04em; }
+
+/* Trends */
+.trends-section { margin-bottom: 1.5rem; }
+.trends-title {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.trend-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 11px;
+  color: var(--ink3);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pill .pill-count { font-size: 10px; color: var(--ink4); }
+.pill.hot { background: rgba(232,67,122,0.15); border-color: rgba(232,67,122,0.3); color: var(--rose); }
+.pill.gold { background: rgba(255,107,168,0.1); border-color: rgba(255,107,168,0.25); color: var(--gold); }
+.pill.sage { background: rgba(201,123,168,0.1); border-color: rgba(201,123,168,0.25); color: var(--sage); }
+
+/* AI Analysis */
+.analysis-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.analysis-label {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.analysis-text { font-size: 13px; color: var(--ink3); line-height: 1.75; }
+.analysis-text p { margin-bottom: 0.75rem; }
+.analysis-text p:last-child { margin-bottom: 0; }
+.analysis-text strong { color: var(--ink2); font-weight: 500; }
+
+/* Video feed */
+.video-feed { display: flex; flex-direction: column; gap: 10px; }
+.video-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.video-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(232,67,122,0.15);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.video-body { flex: 1; min-width: 0; }
+.video-caption { font-size: 13px; color: var(--ink2); line-height: 1.5; margin-bottom: 6px; }
+.video-meta { display: flex; gap: 12px; }
+.video-stat { font-size: 11px; color: var(--ink4); }
+.video-sound { font-size: 11px; color: var(--rose); font-style: italic; }
+
+/* Cross-city */
+.cross-city-table { width: 100%; border-collapse: collapse; }
+.cross-city-table th {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+.cross-city-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border2);
+  color: var(--ink3);
+}
+.cross-city-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--ink4);
+}
+.empty-icon { font-size: 40px; margin-bottom: 1rem; }
+.empty-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--ink3); margin-bottom: 8px; font-style: italic; font-weight: 300; }
+.empty-body { font-size: 12px; line-height: 1.6; max-width: 340px; margin: 0 auto; color: var(--ink4); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(8,3,6,0.8);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  display: none;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #0c0d18;
+  border-radius: 14px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 90%;
+  border: 1px solid rgba(108,99,255,0.2);
+}
+.modal h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; margin-bottom: 6px; font-style: italic; font-weight: 300; color: var(--ink); }
+.modal p { font-size: 13px; color: var(--ink4); margin-bottom: 1.25rem; line-height: 1.6; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #e8437a, #c4285e);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+/* Category breakdown */
+.cat-breakdown { margin-bottom: 1.5rem; }
+.cat-breakdown-title { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink4); font-weight: 600; margin-bottom: 10px; }
+.cat-bars { display: flex; flex-direction: column; gap: 6px; }
+.cat-bar-item { cursor: pointer; }
+.cat-bar-item:hover .cat-bar-label { color: var(--ink2); }
+.cat-bar-fill { height: 4px; border-radius: 2px; margin-bottom: 3px; transition: width 0.4s; }
+.cat-bar-label { font-size: 11px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
+.cat-bar-count { margin-left: auto; font-size: 10px; }
+
+/* Feed filters */
+.feed-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+.feed-filter {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--ink4);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.feed-filter:hover { border-color: var(--ink3); color: var(--ink2); }
+.feed-filter.active { background: rgba(232,67,122,0.15); border-color: var(--rose); color: var(--rose); }
+.feed-filter-count { font-size: 10px; opacity: 0.7; }
+
+/* Video cards */
+.video-feed { display: flex; flex-direction: column; gap: 8px; }
+.vcard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  transition: border-color 0.15s;
+}
+.vcard:hover { border-color: rgba(232,67,122,0.3); }
+.vcard-left { flex: 1; min-width: 0; }
+.vcard-right { flex-shrink: 0; display: flex; align-items: center; }
+.vcard-top-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.vcard-date { font-size: 10px; color: var(--ink4); letter-spacing: 0.04em; margin-left: auto; }
+.vcard-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  text-transform: uppercase;
+}
+.vcard-caption {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.55;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.vcard-sound {
+  font-size: 11px;
+  color: var(--rose);
+  font-style: italic;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vcard-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.vcard-stat { font-size: 11px; color: var(--ink4); }
+.vcard-author { font-size: 11px; color: var(--sage); margin-left: auto; }
+.vcard-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #e8437a, #c4285e);
+  color: white;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 7px 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.vcard-link:hover { opacity: 0.85; }
+.vcard-link-disabled { font-size: 11px; color: var(--ink4); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+
+/* Top nav */
+.top-nav {
+  background: rgba(8,3,6,0.98);
+  border-bottom: 1px solid rgba(232,67,122,0.15);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 2.5rem;
+}
+.top-nav-btn {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s;
+  font-family: 'Montserrat', sans-serif;
+}
+.top-nav-btn:hover { color: var(--ink2); }
+.top-nav-btn.active { color: var(--rose); border-bottom-color: var(--rose); }
+
+/* Reports view */
+.reports-layout { display: grid; grid-template-columns: 320px 1fr; min-height: calc(100vh - 105px); }
+.reports-sidebar {
+  background: rgba(12,13,24,0.98);
+  border-right: 1px solid rgba(108,99,255,0.15);
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+.reports-main { padding: 2rem 2.5rem; overflow-y: auto; }
+.report-list { display: flex; flex-direction: column; gap: 8px; }
+.report-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.report-item:hover { border-color: rgba(232,67,122,0.3); }
+.report-item.active { border-color: var(--rose); background: rgba(232,67,122,0.08); }
+.report-item-city { font-size: 13px; font-weight: 500; color: var(--ink2); margin-bottom: 3px; }
+.report-item-meta { font-size: 11px; color: var(--ink4); display: flex; justify-content: space-between; }
+.report-item-stats { display: flex; gap: 10px; margin-top: 8px; }
+.report-stat { font-size: 11px; color: var(--ink4); }
+.report-stat span { color: var(--rose); font-weight: 500; }
+.report-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(232,67,122,0.15);
+  color: var(--rose);
+  border: 1px solid rgba(232,67,122,0.3);
+}
+
+/* Report detail */
+.report-header { margin-bottom: 2rem; }
+.report-city-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-style: italic; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+.report-city-title em { font-style: normal; color: var(--rose); }
+.report-sub { font-size: 12px; color: var(--ink4); letter-spacing: 0.04em; }
+.report-section { margin-bottom: 2rem; }
+.report-section-title {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(232,67,122,0.15);
+}
+.report-insight {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 8px;
+}
+.report-insight-label { font-size: 10px; color: var(--ink4); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+.report-insight-text { font-size: 13px; color: var(--ink2); line-height: 1.7; }
+.report-insight-text strong { color: var(--ink); font-weight: 500; }
+.action-items { display: flex; flex-direction: column; gap: 8px; }
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(232,67,122,0.06);
+  border: 1px solid rgba(232,67,122,0.2);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+}
+.action-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--rose);
+  font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.action-text { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.action-text strong { color: var(--ink); font-weight: 500; }
+.top-videos-grid { display: flex; flex-direction: column; gap: 8px; }
+.report-video {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.report-video-left { flex: 1; min-width: 0; }
+.report-video-caption { font-size: 12px; color: var(--ink2); line-height: 1.5; margin-bottom: 5px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.report-video-meta { display: flex; gap: 10px; }
+.report-video-stat { font-size: 11px; color: var(--ink4); }
+.report-video-sound { font-size: 11px; color: var(--rose); font-style: italic; }
+.sounds-list { display: flex; flex-direction: column; gap: 6px; }
+.sound-row { display: flex; align-items: center; gap: 10px; }
+.sound-name { font-size: 13px; color: var(--ink2); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sound-bar-wrap { width: 80px; flex-shrink: 0; }
+.sound-bar { height: 3px; background: var(--border2); border-radius: 2px; }
+.sound-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), var(--gold)); }
+.sound-count { font-size: 11px; color: var(--ink4); flex-shrink: 0; min-width: 40px; text-align: right; }
+.gen-report-btn {
+  background: linear-gradient(135deg, #e8437a, #c4285e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: opacity 0.15s;
+}
+.gen-report-btn:hover { opacity: 0.85; }
+.no-reports-empty { text-align: center; padding: 4rem 2rem; color: var(--ink4); }
+.no-reports-empty .empty-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--ink3); margin-bottom: 8px; font-style: italic; }
+.no-reports-empty .empty-body { font-size: 12px; line-height: 1.7; max-width: 300px; margin: 0 auto; }
+
+/* ── Tickets tab ──────────────────────────────── */
+.tickets-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
+.tickets-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
+.tickets-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: italic; }
+.tickets-title em { font-style: normal; color: var(--rose); }
+.tickets-as-of { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
+.tickets-as-of span { color: var(--sage); }
+.tickets-upload-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 14px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3);
+  cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.15s;
+}
+.tickets-upload-btn:hover { border-color: var(--rose); color: var(--rose); }
+.tickets-totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+.tickets-filter-bar { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
+.tkt-filter {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px; border: 1px solid var(--border);
+  color: var(--ink4); cursor: pointer; background: transparent; transition: all 0.15s;
+  font-family: 'Montserrat', sans-serif;
+}
+.tkt-filter:hover { border-color: var(--ink3); color: var(--ink2); }
+.tkt-filter.active { background: rgba(108,99,255,0.15); border-color: var(--rose); color: var(--rose); }
+.tickets-table { width: 100%; border-collapse: collapse; }
+.tickets-table th {
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink4); padding: 8px 14px; text-align: left;
+  border-bottom: 1px solid var(--border); font-weight: 600;
+}
+.tickets-table th.num { text-align: right; }
+.tickets-table td { padding: 9px 14px; font-size: 13px; border-bottom: 1px solid var(--border2); color: var(--ink3); vertical-align: middle; }
+.tickets-table td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink2); }
+.tickets-table tr:hover td { background: rgba(108,99,255,0.04); }
+.tickets-table tr.t-played { opacity: 0.45; }
+.tickets-table tr.t-played:hover { opacity: 0.7; }
+.tickets-table tr.t-sold-out td.t-city { color: var(--rose); }
+.t-badge {
+  display: inline-flex; align-items: center; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px;
+  border-radius: 10px; border: 1px solid; margin-left: 6px; vertical-align: middle;
+}
+.t-badge-sold-out { background: rgba(108,99,255,0.12); color: var(--rose); border-color: rgba(108,99,255,0.3); }
+.t-badge-played { background: rgba(90,61,72,0.2); color: var(--ink4); border-color: var(--border); }
+.t-badge-low { background: rgba(229,115,115,0.1); color: #e57373; border-color: rgba(229,115,115,0.25); }
+.fill-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.fill-bar { width: 72px; height: 3px; background: var(--border2); border-radius: 2px; flex-shrink: 0; }
+.fill-bar-fill { height: 100%; border-radius: 2px; }
+.fill-pct { font-size: 11px; min-width: 34px; text-align: right; }
+.wow-up { color: #81c784; font-size: 11px; }
+.wow-dn { color: #e57373; font-size: 11px; }
+.wow-flat { color: var(--ink4); font-size: 11px; }
+.region-row td {
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--rose); font-weight: 600; padding: 14px 14px 6px;
+  border-bottom: 1px solid rgba(108,99,255,0.12);
+  background: rgba(108,99,255,0.03);
+}
+.subtotal-row td { padding: 6px 14px 12px; border-bottom: 1px solid var(--border); }
+.upload-drop-zone {
+  border: 1px dashed var(--border); border-radius: 10px; padding: 2.5rem;
+  text-align: center; margin-top: 1.5rem; cursor: pointer; transition: border-color 0.15s;
+}
+.upload-drop-zone:hover, .upload-drop-zone.drag-over { border-color: var(--rose); background: rgba(108,99,255,0.04); }
+.upload-drop-zone p { font-size: 13px; color: var(--ink4); line-height: 1.7; }
+.upload-drop-zone span { color: var(--rose); cursor: pointer; text-decoration: underline; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="wordmark"><em>Live From The Internet</em> — it's Conan Gray</div>
+    <div class="header-tag">TikTok & Twitter Intelligence</div>
+  </div>
+  <div class="last-run" id="lastRunDisplay">Never synced</div>
+</div>
+
+<div class="top-nav">
+  <div class="top-nav-btn active" id="nav-hub" onclick="switchView('hub')">Tour Hub</div>
+  <div class="top-nav-btn" id="nav-reports" onclick="switchView('reports')">Reports</div>
+  <div class="top-nav-btn" id="nav-tickets" onclick="switchView('tickets')">Tickets</div>
+</div>
+
+
+
+<div id="view-hub">
+<div class="layout">
+  <div class="sidebar">
+
+
+
+    <div>
+      <div class="sidebar-section-title">Tour Stops</div>
+      <button class="btn-run" style="background:var(--ink2);margin-bottom:6px;font-size:12px;padding:8px;" onclick="importTourDates()">Import Wishbone World Tour (42 dates)</button>
+      <button style="width:100%;background:transparent;border:1px solid var(--border);border-radius:6px;padding:6px;font-size:11px;color:var(--ink4);cursor:pointer;margin-bottom:10px;font-family:'Montserrat',sans-serif;" onclick="clearCities()">Clear all cities</button>
+      <div class="city-add">
+        <input class="city-input" type="text" id="cityInput" placeholder="Add custom city..." onkeydown="if(event.key==='Enter')addCity()" />
+        <button class="btn-add" onclick="addCity()">+</button>
+      </div>
+      <div class="city-list" id="cityList"></div>
+    </div>
+
+    <div>
+      <button class="btn-run" id="runBtn" onclick="runScrape()">Sync All Cities</button>
+      <div class="run-status" id="runStatus"></div>
+      <div class="progress" id="progressBar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <div id="exportSection" style="display:none;">
+      <div class="sidebar-section-title">AI Analysis</div>
+      <p style="font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:10px;">Copy the data below, paste it into Claude, then paste the response back here.</p>
+      <button class="btn-run" style="background:var(--gold);margin-bottom:8px;" onclick="copyForClaude()">Copy data for Claude</button>
+      <button class="btn-run" style="background:rgba(232,67,122,0.2);border:1px solid var(--rose);color:var(--rose);margin-bottom:8px;" onclick="switchView('reports')">View Reports →</button>
+      <div id="copyStatus" style="font-size:11px;color:var(--sage);text-align:center;min-height:16px;margin-bottom:8px;"></div>
+      <label style="font-size:11px;color:var(--ink3);display:block;margin-bottom:4px;">Paste Claude's analysis here:</label>
+      <textarea id="analysisInput" style="width:100%;height:100px;background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;resize:vertical;" placeholder="Paste Claude's response here..."></textarea>
+      <button class="btn-run" style="margin-top:6px;" onclick="applyAnalysis()">Apply Analysis</button>
+    </div>
+
+  </div>
+
+  <div class="main" id="mainContent">
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">🎸</div>
+      <div class="empty-title">No data yet</div>
+      <div class="empty-body">Add tour stop cities in the sidebar, drop in your API keys, and hit Sync to start pulling TikTok UGC for each show.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="view-reports" style="display:none;">
+  <div class="reports-layout">
+    <div class="reports-sidebar">
+      <div class="sidebar-section-title" style="margin-bottom:12px;">Daily Reports</div>
+      <div class="report-list" id="reportList">
+        <div class="no-reports-empty">
+          <div class="empty-title">No reports yet</div>
+          <div class="empty-body">Sync a city and generate a report to see it here.</div>
+        </div>
+      </div>
+    </div>
+    <div class="reports-main" id="reportDetail">
+      <div class="no-reports-empty" style="padding-top:6rem;">
+        <div class="empty-title">Select a report</div>
+        <div class="empty-body">Choose a city from the left to view its daily briefing.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Clear all data?</h2>
+    <p>This will remove all cached reports and city data. Your API keys will be preserved.</p>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="confirmClear()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+let state = {
+  cities: [],
+  reports: {},
+  twitterReports: {},
+  generatedReports: {},
+  activeCity: null,
+  activeTab: 'feed',
+  activeView: 'hub',
+  activeReport: null
+};
+
+function switchView(view) {
+  state.activeView = view;
+  document.getElementById('view-hub').style.display = view === 'hub' ? 'block' : 'none';
+  document.getElementById('view-reports').style.display = view === 'reports' ? 'block' : 'none';
+  document.getElementById('view-tickets').style.display = view === 'tickets' ? 'block' : 'none';
+  document.getElementById('nav-hub').classList.toggle('active', view === 'hub');
+  document.getElementById('nav-reports').classList.toggle('active', view === 'reports');
+  document.getElementById('nav-tickets').classList.toggle('active', view === 'tickets');
+  if (view === 'reports') renderReportsList();
+  if (view === 'tickets') renderTicketsView();
+}
+
+function generateReport(cityId) {
+  const city = state.cities.find(c => c.id === cityId);
+  const report = state.reports[cityId];
+  if (!city || !report || !report.videos.length) return null;
+
+  const totalViews = report.videos.reduce((s, v) => s + (v.views || 0), 0);
+  const totalLikes = report.videos.reduce((s, v) => s + (v.likes || 0), 0);
+  const cats = report.categories || {};
+  const topCatKey = Object.entries(cats).sort((a,b) => b[1]-a[1])[0]?.[0] || 'general';
+  const topCatLabel = CATEGORY_LABELS[topCatKey]?.label || topCatKey;
+
+  // Top sounds
+  const topSounds = report.topSounds.slice(0, 6);
+  const ownSounds = topSounds.filter(s => s.artist?.toLowerCase().includes('conan gray') || s.name?.toLowerCase().includes('conan gray') || ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best'].some(t => s.name?.toLowerCase().includes(t)));
+  const fanSounds = topSounds.filter(s => !ownSounds.includes(s));
+
+  // Top videos
+  const topVideos = report.videos.slice(0, 5);
+
+  // Category insights
+  const concertCount = cats.concert || 0;
+  const outfitCount = cats.outfit || 0;
+  const lyricsCount = cats.lyrics || 0;
+  const reactionCount = cats.reaction || 0;
+
+  // Fan accounts leading conversation
+  const topCreators = report.videos.slice(0, 10).map(v => v.author).filter(Boolean);
+
+  // Breakout hashtags (non-generic)
+  const breakoutTags = report.hashtags.filter(h =>
+    !['conangray','fyp','foryou','viral','wishbone','wishboneworldtour','concert','popmusic','wishbonedeluxe'].includes(h.tag)
+  ).slice(0, 5);
+
+  // Demand signals — songs mentioned in captions
+  const allCaptions = report.videos.map(v => v.caption.toLowerCase()).join(' ');
+  const demandSongs = [
+    { song: 'Heather', signal: allCaptions.includes('heather') },
+    { song: 'Astronomy', signal: allCaptions.includes('astronomy') },
+    { song: 'Maniac', signal: allCaptions.includes('maniac') },
+    { song: 'People Watching', signal: allCaptions.includes('people watching') },
+    { song: 'Family Line', signal: allCaptions.includes('family line') },
+    { song: 'House of Plagues', signal: allCaptions.includes('house of plagues') },
+    { song: 'Mr. Davis', signal: allCaptions.includes('mr. davis') || allCaptions.includes('mr davis') },
+    { song: 'The Best', signal: allCaptions.includes('the best') },
+  ].filter(d => d.signal).map(d => d.song);
+
+  const tw = state.twitterReports[cityId] || {};
+  const twitterSummary = tw.totalTweets ? {
+    totalTweets: tw.totalTweets,
+    topSentiment: Object.entries(tw.sentimentCounts || {}).sort((a,b)=>b[1]-a[1])[0]?.[0] || 'general',
+    sentimentCounts: tw.sentimentCounts || {},
+    topSongMentions: tw.topSongMentions || [],
+    topTweets: (tw.tweets || []).slice(0, 3).map(t => ({ text: t.text, likes: t.likes, author: t.author, url: t.url }))
+  } : null;
+
+  const generated = {
+    cityId,
+    cityName: city.name,
+    date: city.date,
+    venue: city.venue,
+    generatedAt: Date.now(),
+    syncedAt: report.syncedAt,
+    stats: {
+      videoCount: report.videos.length,
+      totalViews,
+      totalLikes,
+      topCategory: topCatLabel
+    },
+    topSounds,
+    ownSounds,
+    fanSounds,
+    topVideos,
+    cats,
+    breakoutTags,
+    demandSongs,
+    topCreators: [...new Set(topCreators)].slice(0, 5),
+    hashtags: report.hashtags.slice(0, 8),
+    twitter: twitterSummary
+  };
+
+  state.generatedReports[cityId] = generated;
+  saveState();
+  return generated;
+}
+
+function renderReportsList() {
+  const list = document.getElementById('reportList');
+  const cities = state.cities.filter(c => state.reports[c.id]?.videos?.length);
+
+  if (!cities.length) {
+    list.innerHTML = `<div class="no-reports-empty"><div class="empty-title">No data yet</div><div class="empty-body">Sync cities in Tour Hub first.</div></div>`;
+    return;
+  }
+
+  list.innerHTML = cities.map(city => {
+    const report = state.reports[city.id];
+    const gen = state.generatedReports[city.id];
+    const views = report.videos.reduce((s,v) => s+(v.views||0), 0);
+    const isActive = state.activeReport === city.id;
+    const syncTime = report.syncedAt ? new Date(report.syncedAt).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
+
+    return `<div class="report-item ${isActive?'active':''}" onclick="openReport(${city.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="report-item-city">${esc(city.name)}</div>
+        ${gen ? '<span class="report-badge">Report ready</span>' : ''}
+      </div>
+      <div class="report-item-meta">
+        <span>${city.date}${city.venue ? ' · ' + city.venue : ''}</span>
+        <span>${syncTime}</span>
+      </div>
+      <div class="report-item-stats">
+        <span class="report-stat"><span>${report.videos.length}</span> videos</span>
+        <span class="report-stat"><span>${fmtNum(views)}</span> views</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openReport(cityId) {
+  state.activeReport = cityId;
+  renderReportsList();
+
+  let gen = state.generatedReports[cityId];
+  if (!gen) gen = generateReport(cityId);
+  if (!gen) return;
+
+  renderReportDetail(gen);
+}
+
+function renderReportDetail(gen) {
+  const detail = document.getElementById('reportDetail');
+  const syncTime = gen.syncedAt ? new Date(gen.syncedAt).toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' }) : '—';
+  const maxSoundCount = gen.topSounds[0]?.count || 1;
+
+  const soundsHTML = gen.topSounds.map(s => {
+    const isConan = gen.ownSounds.includes(s);
+    const pct = Math.round(s.count / maxSoundCount * 100);
+    return `<div class="sound-row">
+      <div class="sound-name" style="color:${isConan ? 'var(--rose)' : 'var(--ink2)'}">${esc(s.name)}${s.artist ? ' <span style="color:var(--ink4);font-size:11px;">— ' + esc(s.artist) + '</span>' : ''}</div>
+      <div class="sound-bar-wrap"><div class="sound-bar"><div class="sound-bar-fill" style="width:${pct}%"></div></div></div>
+      <div class="sound-count">${s.count} vid${s.count!==1?'s':''}</div>
+    </div>`;
+  }).join('');
+
+  const topVidsHTML = gen.topVideos.map(v => {
+    const cat = CATEGORY_LABELS[v.category] || CATEGORY_LABELS.general;
+    return `<div class="report-video">
+      <div class="report-video-left">
+        <div class="report-video-caption">${esc(v.caption || 'No caption')}</div>
+        <div class="report-video-meta">
+          <span class="report-video-stat">👁 ${fmtNum(v.views||0)}</span>
+          <span class="report-video-stat">❤️ ${fmtNum(v.likes||0)}</span>
+          ${v.sound ? `<span class="report-video-sound">♪ ${esc(v.sound)}</span>` : ''}
+          <span style="font-size:10px;color:${cat.color};">${cat.emoji} ${cat.label}</span>
+        </div>
+      </div>
+      ${v.url ? `<a href="${v.url}" target="_blank" rel="noopener" class="vcard-link" style="font-size:10px;padding:5px 10px;">Watch →</a>` : ''}
+    </div>`;
+  }).join('');
+
+  const hashtagsHTML = gen.hashtags.map((h,i) =>
+    `<span class="pill ${i<3?'hot':''}">#${esc(h.tag)} <span class="pill-count">${h.count}</span></span>`
+  ).join('');
+
+  const breakoutHTML = gen.breakoutTags.length
+    ? gen.breakoutTags.map(h => `<span class="pill gold">#${esc(h.tag)} <span class="pill-count">${h.count}</span></span>`).join('')
+    : '<span style="color:var(--ink4);font-size:12px;">None detected</span>';
+
+  const demandHTML = gen.demandSongs.length
+    ? gen.demandSongs.map(s => `<span class="pill sage">🎵 ${esc(s)}</span>`).join('')
+    : '<span style="color:var(--ink4);font-size:12px;">No specific song demand detected</span>';
+
+  // Auto-generate action items based on data
+  const actions = [];
+  if (gen.fanSounds.length) actions.push(`<strong>Amplify @${esc(gen.topCreators[0] || 'top fan')}.</strong> A fan-created original sound is leading the conversation — repost or stitch it from Conan's account to reward the behavior and drive more of it.`);
+  if (gen.cats.concert > 50) actions.push(`<strong>Post the show from Conan's POV.</strong> ${gen.cats.concert} concert videos are circulating but none from the artist's perspective. A single backstage or stage-view clip will stand out.`);
+  if (gen.demandSongs.length) actions.push(`<strong>Acknowledge the setlist demand.</strong> Fans are calling out ${gen.demandSongs.slice(0,2).join(' and ')} — a story or comment acknowledging it builds community and drives more engagement.`);
+  if (gen.cats.outfit > 20) actions.push(`<strong>Own the outfit narrative.</strong> Fashion content is generating ${gen.cats.outfit} videos. Post a dedicated outfit breakdown from Conan or style team — it will seed more fan fashion content.`);
+  if (gen.breakoutTags.length) actions.push(`<strong>Seed #${esc(gen.breakoutTags[0].tag)}.</strong> This hashtag is emerging organically — Conan's team using it will accelerate it into a tour-wide tag.`);
+  if (actions.length < 3) actions.push(`<strong>Reply to top fan videos.</strong> The highest-viewed fan content has no artist response yet. A single reply or duet from Conan on the top video drives engagement loops.`);
+
+  const actionsHTML = actions.slice(0,4).map((a,i) =>
+    `<div class="action-item"><div class="action-num">${i+1}</div><div class="action-text">${a}</div></div>`
+  ).join('');
+
+  // Cat breakdown summary
+  const catSummary = Object.entries(CATEGORY_LABELS).map(([key, meta]) => {
+    const count = gen.cats[key] || 0;
+    if (!count) return '';
+    const pct = Math.round(count / gen.stats.videoCount * 100);
+    return `<span class="pill" style="background:${meta.color}15;border-color:${meta.color}33;color:${meta.color}">${meta.emoji} ${meta.label} <span class="pill-count">${pct}%</span></span>`;
+  }).join('');
+
+  detail.innerHTML = `
+    <div class="report-header">
+      <div class="report-city-title"><em>${esc(gen.cityName.replace('— Night','· Night'))}</em></div>
+      <div class="report-sub">${gen.date}${gen.venue ? ' · ' + gen.venue : ''} · synced ${syncTime}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2rem;">
+      <div class="stat-card"><div class="stat-label">Videos</div><div class="stat-value">${gen.stats.videoCount}</div></div>
+      <div class="stat-card"><div class="stat-label">Total views</div><div class="stat-value">${fmtNum(gen.stats.totalViews)}</div></div>
+      <div class="stat-card"><div class="stat-label">Total likes</div><div class="stat-value">${fmtNum(gen.stats.totalLikes)}</div></div>
+      <div class="stat-card"><div class="stat-label">Top content</div><div class="stat-value" style="font-size:14px;">${esc(gen.stats.topCategory)}</div></div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Action Items</div>
+      <div class="action-items">${actionsHTML}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Content Breakdown</div>
+      <div class="trend-pills" style="margin-bottom:0;">${catSummary}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Top Sounds</div>
+      <div class="sounds-list">${soundsHTML}</div>
+      <p style="font-size:11px;color:var(--ink4);margin-top:8px;">Purple = Conan's own catalog</p>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Song Demand Signals</div>
+      <div class="trend-pills">${demandHTML}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Top Hashtags</div>
+      <div class="trend-pills">${hashtagsHTML}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Emerging Hashtags</div>
+      <div class="trend-pills">${breakoutHTML}</div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-title">Top Videos by Views</div>
+      <div class="top-videos-grid">${topVidsHTML}</div>
+    </div>
+
+    ${gen.twitter ? `
+    <div class="report-section">
+      <div class="report-section-title">Twitter / X — ${gen.twitter.totalTweets} tweets</div>
+      <div class="trend-pills" style="margin-bottom:12px;">
+        ${Object.entries(gen.twitter.sentimentCounts).sort((a,b)=>b[1]-a[1]).map(([key,count]) => {
+          const SENT = {love:{label:'Positive',color:'#e8437a',emoji:'🩷'},setlist:{label:'Setlist',color:'#c97ba8',emoji:'🎵'},fashion:{label:'Fashion',color:'#ff6ba8',emoji:'👗'},hype:{label:'Hype',color:'#f5a623',emoji:'🔥'},negative:{label:'Negative',color:'#e05454',emoji:'👎'},general:{label:'General',color:'#5a3d48',emoji:'💬'}};
+          const m = SENT[key] || SENT.general;
+          const pct = Math.round(count/gen.twitter.totalTweets*100);
+          return `<span class="pill" style="background:${m.color}15;border-color:${m.color}33;color:${m.color}">${m.emoji} ${m.label} <span class="pill-count">${pct}%</span></span>`;
+        }).join('')}
+      </div>
+      ${gen.twitter.topSongMentions.length ? `<div class="trend-pills" style="margin-bottom:12px;">${gen.twitter.topSongMentions.map(([s,c]) => `<span class="pill sage">🎵 ${esc(s)} <span class="pill-count">${c}</span></span>`).join('')}</div>` : ''}
+      <div class="top-videos-grid">
+        ${gen.twitter.topTweets.map(t => `<div class="report-video">
+          <div class="report-video-left">
+            <div class="report-video-caption">${esc(t.text)}</div>
+            <div class="report-video-meta">
+              ${t.author ? `<span class="report-video-stat">@${esc(t.author)}</span>` : ''}
+              <span class="report-video-stat">❤️ ${fmtNum(t.likes||0)}</span>
+            </div>
+          </div>
+          ${t.url ? `<a href="${t.url}" target="_blank" rel="noopener" class="vcard-link" style="font-size:10px;padding:5px 10px;">View →</a>` : ''}
+        </div>`).join('')}
+      </div>
+    </div>` : `
+    <div class="report-section">
+      <div class="report-section-title">Twitter / X</div>
+      <div class="report-insight"><div class="report-insight-text" style="color:var(--ink4);">No Twitter data — resync this city to pull tweets.</div></div>
+    </div>`}
+
+    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;">
+      <button class="gen-report-btn" onclick="regenerateReport(${gen.cityId})">↻ Regenerate</button>
+    </div>
+  `;
+}
+
+function regenerateReport(cityId) {
+  delete state.generatedReports[cityId];
+  const gen = generateReport(cityId);
+  if (gen) renderReportDetail(gen);
+  renderReportsList();
+}
+
+const WISHBONE_WORLD_TOUR = [
+  { name: 'Minneapolis, MN', date: 'Feb 19', venue: 'Target Center' },
+  { name: 'Fishers, IN', date: 'Feb 21', venue: 'Fishers Event Center' },
+  { name: 'Toronto, ON', date: 'Feb 23', venue: 'Scotiabank Arena' },
+  { name: 'Boston, MA', date: 'Feb 25', venue: 'TD Garden' },
+  { name: 'Newark, NJ', date: 'Feb 27', venue: 'Prudential Center' },
+  { name: 'Belmont Park, NY', date: 'Feb 28', venue: 'UBS Arena' },
+  { name: 'Philadelphia, PA', date: 'Mar 2', venue: 'Xfinity Mobile Arena' },
+  { name: 'Raleigh, NC', date: 'Mar 4', venue: 'Lenovo Center' },
+  { name: 'Atlanta, GA', date: 'Mar 6', venue: 'State Farm Arena' },
+  { name: 'Orlando, FL', date: 'Mar 7', venue: 'Kia Center' },
+  { name: 'Fort Worth, TX', date: 'Mar 10', venue: 'Dickies Arena' },
+  { name: 'Houston, TX', date: 'Mar 11', venue: 'Toyota Center' },
+  { name: 'Glendale, AZ', date: 'Mar 13', venue: 'Desert Diamond Arena' },
+  { name: 'Seattle, WA', date: 'Mar 16', venue: 'Climate Pledge Arena' },
+  { name: 'Sacramento, CA', date: 'Mar 18', venue: 'Golden 1 Center' },
+  { name: 'Los Angeles, CA', date: 'Mar 20', venue: 'Kia Forum' },
+  { name: 'Dublin, IE', date: 'May 5', venue: '3Arena' },
+  { name: 'Birmingham, UK', date: 'May 7', venue: 'bp Pulse LIVE' },
+  { name: 'Manchester, UK', date: 'May 9', venue: 'AO Arena' },
+  { name: 'Glasgow, UK', date: 'May 10', venue: 'OVO Hydro' },
+  { name: 'London, UK', date: 'May 12', venue: 'O2 Arena' },
+  { name: 'Amsterdam, Netherlands', date: 'May 14', venue: 'Ziggo Dome' },
+  { name: 'Antwerp, BE', date: 'May 15', venue: 'AFAS Dome' },
+  { name: 'Dusseldorf, DE', date: 'May 16', venue: 'Mitsubishi Electric Halle' },
+  { name: 'Paris, FR', date: 'May 18', venue: 'Adidas Arena' },
+  { name: 'Hamburg, DE', date: 'May 21', venue: 'Sporthalle' },
+  { name: 'Oslo, NO', date: 'May 23', venue: 'Unity Arena' },
+  { name: 'Stockholm, SE', date: 'May 25', venue: 'Avicii Arena' },
+  { name: 'Copenhagen, DK', date: 'May 26', venue: 'Royal Arena' },
+  { name: 'Berlin, DE', date: 'May 28', venue: 'Max-Schmeling-Halle' },
+  { name: 'Krakow, PL', date: 'May 29', venue: 'Tauron Arena' },
+  { name: 'Prague, CZ', date: 'May 31', venue: 'O2 Universum' },
+  { name: 'Vienna, AT', date: 'Jun 1', venue: 'Wiener Stadthalle' },
+  { name: 'Bergamo, IT', date: 'Jun 3', venue: 'ChorusLife Arena' },
+  { name: 'Madrid, ES', date: 'Jun 6', venue: 'Palacio Vistalegre' },
+  { name: 'Lisbon, PT', date: 'Jun 7', venue: 'MEO Arena' },
+  { name: 'Auckland, NZ', date: 'Sep 26', venue: 'Spark Arena' },
+  { name: 'Brisbane, AU', date: 'Sep 29', venue: 'Brisbane Entertainment Centre' },
+  { name: 'Sydney, AU', date: 'Oct 1', venue: 'Qudos Bank Arena' },
+  { name: 'Melbourne, AU', date: 'Oct 3', venue: 'Rod Laver Arena' },
+  { name: 'Adelaide, AU', date: 'Oct 5', venue: 'Adelaide Entertainment Centre' },
+  { name: 'Perth, AU', date: 'Oct 8', venue: 'RAC Arena' }
+];
+
+function clearCities() {
+  if (!confirm('Clear all cities and reports? API keys will be kept.')) return;
+  state.cities = [];
+  state.reports = {};
+  state.activeCity = null;
+  saveState();
+  renderSidebar();
+  renderMain();
+  setRunStatus('Cleared — reimport Wishbone World Tour dates', 'done');
+}
+
+function importTourDates() {
+  let added = 0;
+  WISHBONE_WORLD_TOUR.forEach(stop => {
+    const key = stop.name + stop.date;
+    if (!state.cities.find(c => (c.name + c.date) === key)) {
+      state.cities.push({ name: stop.name, id: Date.now() + Math.random(), date: stop.date, venue: stop.venue });
+      added++;
+    }
+  });
+  if (added > 0) {
+    if (!state.activeCity) state.activeCity = state.cities[0].id;
+    saveState();
+    renderSidebar();
+    renderMain();
+    setRunStatus(`Imported ${added} tour stops`, 'done');
+  } else {
+    setRunStatus('All dates already imported', 'done');
+  }
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('conan_tour_pulse');
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+
+  } catch(e) {}
+}
+
+function saveState() {
+  localStorage.setItem('conan_tour_pulse', JSON.stringify({
+    cities: state.cities,
+    reports: state.reports,
+    twitterReports: state.twitterReports,
+    generatedReports: state.generatedReports,
+    activeCity: state.activeCity
+  }));
+}
+
+
+
+function addCity() {
+  const input = document.getElementById('cityInput');
+  const val = input.value.trim();
+  if (!val) return;
+  if (state.cities.find(c => c.name.toLowerCase() === val.toLowerCase())) {
+    input.value = ''; return;
+  }
+  state.cities.push({ name: val, id: Date.now() });
+  input.value = '';
+  saveState();
+  renderSidebar();
+  if (state.cities.length === 1) setActiveCity(state.cities[0].id);
+}
+
+function removeCity(id) {
+  state.cities = state.cities.filter(c => c.id !== id);
+  delete state.reports[id];
+  if (state.activeCity === id) {
+    state.activeCity = state.cities[0]?.id || null;
+  }
+  saveState();
+  renderSidebar();
+  renderMain();
+}
+
+function setActiveCity(id) {
+  state.activeCity = id;
+  saveState();
+  renderSidebar();
+  renderMain();
+}
+
+function renderSidebar() {
+  const list = document.getElementById('cityList');
+  if (state.cities.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = state.cities.map(city => {
+    const report = state.reports[city.id];
+    const count = report?.videos?.length || 0;
+    const isActive = state.activeCity === city.id;
+    const meta = city.date ? `<span class="city-count">${city.date}</span>` : (count ? `<span class="city-count">${count} videos</span>` : '');
+    return `<div class="city-item ${isActive ? 'active' : ''}" onclick="setActiveCity(${city.id})">
+      <div>
+        <span class="city-name">${esc(city.name)}</span>
+        ${city.venue ? `<div style="font-size:10px;color:var(--ink4);margin-top:1px;">${esc(city.venue)}</div>` : ''}
+      </div>
+      <span class="city-meta">
+        ${meta}
+        <span class="city-sync" onclick="event.stopPropagation();syncOneCity(${city.id})" title="Sync this city">↻</span>
+        <span class="city-del" onclick="event.stopPropagation();removeCity(${city.id})">×</span>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function renderMain() {
+  const main = document.getElementById('mainContent');
+
+  if (state.cities.length === 0) {
+    main.innerHTML = `<div class="empty"><div class="empty-icon">🎤</div><div class="empty-title">No tour stops yet</div><div class="empty-body">Import the Wishbone World Tour or add cities to get started.</div></div>`;
+    return;
+  }
+
+  const city = state.cities.find(c => c.id === state.activeCity);
+  if (!city) return;
+
+  const report = state.reports[city.id];
+
+  if (!report) {
+    main.innerHTML = `
+      <div class="city-header">
+        <div class="city-title">${esc(city.name)}</div>
+        ${city.venue ? `<div class="city-date">${city.date ? city.date + ' · ' : ''}${esc(city.venue)}</div>` : ''}
+      </div>
+      <div class="empty">
+        <div class="empty-icon">📱</div>
+        <div class="empty-title">No data yet</div>
+        <div class="empty-body">Hit "Sync All Cities" to pull TikTok content for ${esc(city.name)}.</div>
+      </div>`;
+    return;
+  }
+
+  const totalViews = report.videos.reduce((s, v) => s + (v.views || 0), 0);
+  const uniqueSounds = new Set(report.videos.map(v => v.sound).filter(Boolean)).size;
+  const syncTime = report.syncedAt ? new Date(report.syncedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—';
+  const cats = report.categories || {};
+  const total = report.videos.length;
+
+  // Category bar HTML
+  const catBarHTML = Object.entries(CATEGORY_LABELS).map(([key, meta]) => {
+    const count = cats[key] || 0;
+    if (!count) return '';
+    const pct = Math.round(count / Math.max(total, 1) * 100);
+    return `<div class="cat-bar-item" onclick="setCategoryFilter('${key}')" title="${meta.label}: ${count} videos (${pct}%)">
+      <div class="cat-bar-fill" style="width:${pct}%;background:${meta.color}"></div>
+      <span class="cat-bar-label">${meta.emoji} ${meta.label} <span class="cat-bar-count">${count}</span></span>
+    </div>`;
+  }).join('');
+
+  main.innerHTML = `
+    <div class="city-header">
+      <div>
+        <div class="city-title"><em>${esc(city.name.replace('— Night', '·'))}</em></div>
+        <div class="city-date">${city.date ? city.date + (city.venue ? ' · ' + city.venue : '') + ' · ' : ''}synced ${syncTime}</div>
+      </div>
+    </div>
+
+    <div class="overview-grid">
+      <div class="stat-card">
+        <div class="stat-label">Videos found</div>
+        <div class="stat-value">${total}</div>
+        <div class="stat-sub">across all searches</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total reach</div>
+        <div class="stat-value">${fmtNum(totalViews)}</div>
+        <div class="stat-sub">combined views</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unique sounds</div>
+        <div class="stat-value">${uniqueSounds}</div>
+        <div class="stat-sub">audio tracks used</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Top category</div>
+        <div class="stat-value" style="font-size:18px;">${topCat(cats)}</div>
+        <div class="stat-sub">most posted content</div>
+      </div>
+    </div>
+
+    <div class="cat-breakdown">
+      <div class="cat-breakdown-title">Content breakdown</div>
+      <div class="cat-bars">${catBarHTML || '<span style="color:var(--ink4);font-size:12px;">No categorized content yet</span>'}</div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab ${state.activeTab==='feed'?'active':''}" onclick="switchTab('feed')">Video Feed</div>
+      <div class="tab ${state.activeTab==='twitter'?'active':''}" onclick="switchTab('twitter')">Twitter</div>
+      <div class="tab ${state.activeTab==='sounds'?'active':''}" onclick="switchTab('sounds')">Top Sounds</div>
+      <div class="tab ${state.activeTab==='trends'?'active':''}" onclick="switchTab('trends')">Hashtags</div>
+      <div class="tab ${state.activeTab==='analysis'?'active':''}" onclick="switchTab('analysis')">AI Analysis</div>
+    </div>
+
+    <div id="panel-feed" class="panel ${state.activeTab==='feed'?'active':''}">
+      ${renderFeedPanel(report)}
+    </div>
+    <div id="panel-twitter" class="panel ${state.activeTab==='twitter'?'active':''}">
+      ${renderTwitterPanel(city.id)}
+    </div>
+    <div id="panel-sounds" class="panel ${state.activeTab==='sounds'?'active':''}">
+      ${renderSongsPanel(report)}
+    </div>
+    <div id="panel-trends" class="panel ${state.activeTab==='trends'?'active':''}">
+      ${renderTrendsPanel(report)}
+    </div>
+    <div id="panel-analysis" class="panel ${state.activeTab==='analysis'?'active':''}">
+      ${renderAnalysisPanel(report)}
+    </div>
+  `;
+}
+
+function topCat(cats) {
+  const sorted = Object.entries(cats).sort((a,b) => b[1]-a[1]);
+  if (!sorted.length) return '—';
+  return CATEGORY_LABELS[sorted[0][0]]?.emoji + ' ' + CATEGORY_LABELS[sorted[0][0]]?.label || sorted[0][0];
+}
+
+let activeCategoryFilter = 'all';
+function setCategoryFilter(cat) {
+  activeCategoryFilter = cat === activeCategoryFilter ? 'all' : cat;
+  switchTab('feed');
+  const panel = document.getElementById('panel-feed');
+  if (panel) {
+    const city = state.cities.find(c => c.id === state.activeCity);
+    const report = state.reports[city?.id];
+    if (report) panel.innerHTML = renderFeedPanel(report);
+  }
+}
+
+function renderTwitterPanel(cityId) {
+  const tw = state.twitterReports[cityId];
+
+  if (!tw) return `<div class="empty"><div class="empty-icon">🐦</div><div class="empty-title">No Twitter data yet</div><div class="empty-body">Hit ↻ to sync this city — Twitter pulls alongside TikTok.</div></div>`;
+  if (tw.error && !tw.totalTweets) return `<div class="empty"><div class="empty-body">Twitter sync failed: ${esc(tw.error)}. Try resyncing.</div></div>`;
+  if (!tw.totalTweets) return `<div class="empty"><div class="empty-body">No tweets found for this window.</div></div>`;
+
+  const SENT_LABELS = {
+    love: { label: 'Positive', color: '#e8437a', emoji: '🩷' },
+    setlist: { label: 'Setlist talk', color: '#c97ba8', emoji: '🎵' },
+    fashion: { label: 'Fashion', color: '#ff6ba8', emoji: '👗' },
+    hype: { label: 'Hype & tickets', color: '#f5a623', emoji: '🔥' },
+    negative: { label: 'Negative', color: '#e05454', emoji: '👎' },
+    general: { label: 'General', color: '#5a3d48', emoji: '💬' }
+  };
+
+  const sentimentHTML = Object.entries(tw.sentimentCounts).sort((a,b) => b[1]-a[1]).map(([key, count]) => {
+    const meta = SENT_LABELS[key] || SENT_LABELS.general;
+    const pct = Math.round(count / tw.totalTweets * 100);
+    return `<span class="pill" style="background:${meta.color}15;border-color:${meta.color}33;color:${meta.color}">${meta.emoji} ${meta.label} <span class="pill-count">${pct}%</span></span>`;
+  }).join('');
+
+  const songMentionsHTML = tw.topSongMentions.length
+    ? tw.topSongMentions.map(([song, count]) => `<span class="pill sage">🎵 ${esc(song)} <span class="pill-count">${count}</span></span>`).join('')
+    : '<span style="color:var(--ink4);font-size:12px;">No specific songs mentioned</span>';
+
+  const topSent = Object.entries(tw.sentimentCounts).sort((a,b)=>b[1]-a[1])[0];
+  const topSentLabel = topSent ? (SENT_LABELS[topSent[0]]?.emoji + ' ' + SENT_LABELS[topSent[0]]?.label) : '—';
+
+  const tweetsHTML = tw.tweets.slice(0, 30).map(t => {
+    const sent = SENT_LABELS[t.sentiment] || SENT_LABELS.general;
+    return `<div class="vcard">
+      <div class="vcard-left">
+        <div class="vcard-top-row">
+          <div class="vcard-cat" style="background:${sent.color}22;color:${sent.color};border-color:${sent.color}44">${sent.emoji} ${sent.label}</div>
+          ${t.date ? `<span class="vcard-date">${esc(t.date)}</span>` : ''}
+        </div>
+        <div class="vcard-caption">${esc(t.text)}</div>
+        <div class="vcard-meta">
+          ${t.author ? `<span class="vcard-author" style="margin-left:0;">@${esc(t.author)}</span>` : ''}
+          <span class="vcard-stat">❤️ ${fmtNum(t.likes||0)}</span>
+          <span class="vcard-stat">🔁 ${fmtNum(t.retweets||0)}</span>
+          ${t.replies ? `<span class="vcard-stat">💬 ${fmtNum(t.replies)}</span>` : ''}
+        </div>
+      </div>
+      <div class="vcard-right">
+        ${t.url ? `<a href="${t.url}" target="_blank" rel="noopener" class="vcard-link">View →</a>` : '<span class="vcard-link-disabled">No link</span>'}
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;">
+      <div class="stat-card"><div class="stat-label">Tweets found</div><div class="stat-value">${tw.totalTweets}</div></div>
+      <div class="stat-card"><div class="stat-label">Top sentiment</div><div class="stat-value" style="font-size:16px;">${topSentLabel}</div></div>
+      <div class="stat-card"><div class="stat-label">Songs mentioned</div><div class="stat-value">${tw.topSongMentions.length}</div></div>
+    </div>
+    <div class="trends-section">
+      <div class="trends-title">Sentiment breakdown</div>
+      <div class="trend-pills">${sentimentHTML}</div>
+    </div>
+    <div class="trends-section">
+      <div class="trends-title">Songs being talked about</div>
+      <div class="trend-pills">${songMentionsHTML}</div>
+    </div>
+    <div class="trends-title" style="margin-bottom:12px;">Top tweets by engagement</div>
+    <div class="video-feed">${tweetsHTML}</div>
+  `;
+}
+
+function renderFeedPanel(report) {
+  let videos = report.videos || [];
+  if (activeCategoryFilter !== 'all') {
+    videos = videos.filter(v => v.category === activeCategoryFilter);
+  }
+
+  const filterBtns = `<div class="feed-filters">
+    <div class="feed-filter ${activeCategoryFilter==='all'?'active':''}" onclick="setCategoryFilter('all')">All</div>
+    ${Object.entries(CATEGORY_LABELS).map(([key, meta]) => {
+      const count = (report.categories||{})[key] || 0;
+      if (!count) return '';
+      return `<div class="feed-filter ${activeCategoryFilter===key?'active':''}" onclick="setCategoryFilter('${key}')" style="${activeCategoryFilter===key?`background:${meta.color}22;border-color:${meta.color};color:${meta.color}`:''}">
+        ${meta.emoji} ${meta.label} <span class="feed-filter-count">${count}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
+
+  if (!videos.length) return filterBtns + `<div class="empty"><div class="empty-body">No videos in this category.</div></div>`;
+
+
+  const cards = videos.slice(0, 60).map(v => {
+    const cat = CATEGORY_LABELS[v.category] || CATEGORY_LABELS.general;
+    const hasLink = !!v.url;
+    return `<div class="vcard">
+      <div class="vcard-left">
+        <div class="vcard-top-row">
+          <div class="vcard-cat" style="background:${cat.color}22;color:${cat.color};border-color:${cat.color}44">${cat.emoji} ${cat.label}</div>
+          ${v.postDate ? `<span class="vcard-date">${esc(v.postDate)}</span>` : ''}
+        </div>
+        <div class="vcard-caption">${esc(v.caption || 'No caption')}</div>
+        <div class="vcard-sound">${v.sound ? `♪ ${esc(v.sound)}${v.soundArtist ? ' — ' + esc(v.soundArtist) : ''}` : ''}</div>
+        <div class="vcard-meta">
+          <span class="vcard-stat">👁 ${fmtNum(v.views||0)}</span>
+          <span class="vcard-stat">❤️ ${fmtNum(v.likes||0)}</span>
+          <span class="vcard-stat">💬 ${fmtNum(v.comments||0)}</span>
+          ${v.shares ? `<span class="vcard-stat">↗ ${fmtNum(v.shares)}</span>` : ''}
+          ${v.author ? `<span class="vcard-author">@${esc(v.author)}</span>` : ''}
+        </div>
+      </div>
+      <div class="vcard-right">
+        ${hasLink
+          ? `<a href="${v.url}" target="_blank" rel="noopener noreferrer" class="vcard-link">Watch →</a>`
+          : `<span class="vcard-link-disabled">No link</span>`}
+      </div>
+    </div>`;
+  }).join('');
+
+  return filterBtns + `<div class="video-feed">${cards}</div>`;
+}
+
+function switchTab(tab) {
+  state.activeTab = tab;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    const tabs = ['feed','twitter','sounds','trends','analysis'];
+    t.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab)?.classList.add('active');
+}
+
+function renderSongsPanel(report) {
+  if (!report.topSounds?.length) return `<div class="empty"><div class="empty-body">No sound data yet.</div></div>`;
+  const max = report.topSounds[0].count;
+  return `<div class="songs-grid">
+    ${report.topSounds.slice(0, 10).map((s, i) => `
+      <div class="song-card">
+        <div class="song-rank">${i+1}</div>
+        <div class="song-info">
+          <div class="song-name">${esc(s.name)}</div>
+          <div class="song-artist">${esc(s.artist || 'Unknown artist')}</div>
+          <div class="song-bar-wrap">
+            <div class="song-bar"><div class="song-bar-fill" style="width:${Math.round(s.count/max*100)}%"></div></div>
+            <div class="song-uses">${s.count} video${s.count!==1?'s':''}</div>
+          </div>
+        </div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderTrendsPanel(report) {
+  if (!report.hashtags?.length && !report.themes?.length) return `<div class="empty"><div class="empty-body">No trend data yet.</div></div>`;
+
+  const hashtagPills = (report.hashtags || []).slice(0, 20).map((h, i) =>
+    `<span class="pill ${i < 3 ? 'hot' : ''}">#${esc(h.tag)} <span class="pill-count">${h.count}</span></span>`
+  ).join('');
+
+  const themePills = (report.themes || []).map((t, i) =>
+    `<span class="pill ${i < 2 ? 'gold' : 'sage'}">${esc(t)}</span>`
+  ).join('');
+
+  const sentPills = (report.sentiments || []).map(s =>
+    `<span class="pill sage">${esc(s)}</span>`
+  ).join('');
+
+  return `
+    <div class="trends-section">
+      <div class="trends-title">Top hashtags</div>
+      <div class="trend-pills">${hashtagPills || '<span style="color:var(--ink4);font-size:13px;">None found</span>'}</div>
+    </div>
+    <div class="trends-section">
+      <div class="trends-title">Content themes</div>
+      <div class="trend-pills">${themePills || '<span style="color:var(--ink4);font-size:13px;">Run AI analysis to generate themes</span>'}</div>
+    </div>
+    <div class="trends-section">
+      <div class="trends-title">Fan sentiment signals</div>
+      <div class="trend-pills">${sentPills || '<span style="color:var(--ink4);font-size:13px;">Run AI analysis to generate sentiment</span>'}</div>
+    </div>
+  `;
+}
+
+function renderAnalysisPanel(report) {
+  if (!report.analysis) return `
+    <div class="analysis-box">
+      <div class="analysis-label">AI Summary</div>
+      <div class="analysis-text"><p style="color:var(--ink4);">No analysis yet. Sync data to generate an AI-powered summary of trends, themes, and fan sentiment for this city.</p></div>
+    </div>`;
+
+  return `
+    <div class="analysis-box">
+      <div class="analysis-label">Sound & Music Trends</div>
+      <div class="analysis-text">${report.analysis.sounds || '<p>No data</p>'}</div>
+    </div>
+    <div class="analysis-box">
+      <div class="analysis-label">Content Themes</div>
+      <div class="analysis-text">${report.analysis.themes || '<p>No data</p>'}</div>
+    </div>
+    <div class="analysis-box">
+      <div class="analysis-label">Fan Sentiment</div>
+      <div class="analysis-text">${report.analysis.sentiment || '<p>No data</p>'}</div>
+    </div>
+    <div class="analysis-box">
+      <div class="analysis-label">Key Takeaway</div>
+      <div class="analysis-text">${report.analysis.takeaway || '<p>No data</p>'}</div>
+    </div>
+  `;
+}
+
+async function syncOneCity(cityId) {
+  const city = state.cities.find(c => c.id === cityId);
+  if (!city) return;
+
+  setActiveCity(cityId);
+  setRunStatus(`Syncing TikTok — ${city.name}...`, 'running');
+  document.getElementById('progressBar').style.display = 'block';
+  setProgress(15);
+
+  try {
+    const videos = await fetchTikToks(city.name, null, city.date);
+    setProgress(60);
+    const processed = processVideos(videos);
+    state.reports[city.id] = { ...processed, analysis: null, syncedAt: Date.now() };
+
+    setRunStatus(`Syncing Twitter — ${city.name}...`, 'running');
+    setProgress(70);
+    try {
+      const tweets = await fetchTwitter(city.name, null, city.date);
+      state.twitterReports[city.id] = { ...processTwitterData(tweets), syncedAt: Date.now() };
+    } catch(te) {
+      console.warn('Twitter sync failed, continuing:', te);
+      state.twitterReports[city.id] = { tweets: [], allTweets: [], sentimentCounts: {}, topSongMentions: [], totalTweets: 0, syncedAt: Date.now(), error: te.message };
+    }
+
+    setProgress(90);
+    generateReport(city.id);
+    saveState();
+    setProgress(100);
+    const twitterCount = state.twitterReports[city.id]?.totalTweets || 0;
+    setRunStatus(`${city.name} synced — ${processed.videos.length} TikToks · ${twitterCount} tweets`, 'done');
+    document.getElementById('exportSection').style.display = 'block';
+    renderSidebar();
+    renderMain();
+  } catch(e) {
+    console.error(e);
+    setRunStatus(`Error syncing ${city.name}`, 'error');
+  } finally {
+    document.getElementById('progressBar').style.display = 'none';
+  }
+}
+
+async function runScrape() {
+  if (state.cities.length === 0) {
+    setRunStatus('Add cities first', 'error'); return;
+  }
+
+  const btn = document.getElementById('runBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Syncing...';
+  document.getElementById('progressBar').style.display = 'block';
+
+  let done = 0;
+  for (const city of state.cities) {
+    setRunStatus(`Fetching ${city.name}...`, 'running');
+    setProgress((done / state.cities.length) * 100);
+    try {
+      const videos = await fetchTikToks(city.name, null, city.date);
+      const processed = processVideos(videos);
+      state.reports[city.id] = { ...processed, analysis: null, syncedAt: Date.now() };
+      generateReport(city.id);
+      done++;
+      setProgress((done / state.cities.length) * 100);
+    } catch(e) {
+      console.error(`Error for ${city.name}:`, e);
+      state.reports[city.id] = { videos: [], topSounds: [], hashtags: [], themes: [], sentiments: [], syncedAt: Date.now(), error: e.message };
+      done++;
+    }
+  }
+
+  saveState();
+  const now = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  document.getElementById('lastRunDisplay').innerHTML = `Last synced <span>${now}</span>`;
+  localStorage.setItem('last_run', now);
+
+  btn.disabled = false;
+  btn.innerHTML = 'Sync All Cities';
+  document.getElementById('progressBar').style.display = 'none';
+  setRunStatus(`Done — ${state.cities.length} cit${state.cities.length===1?'y':'ies'} synced`, 'done');
+  document.getElementById('exportSection').style.display = 'block';
+  renderSidebar();
+  renderMain();
+}
+
+function getPublishTimeParam(showDateStr) {
+  if (!showDateStr) return 30;
+  const months = { Jan:0, Feb:1, Mar:2, Apr:3, May:4, Jun:5, Jul:6, Aug:7, Sep:8, Oct:9, Nov:10, Dec:11 };
+  const parts = showDateStr.trim().split(' ');
+  if (parts.length < 2) return 30;
+  const month = months[parts[0]];
+  const day = parseInt(parts[1]);
+  if (isNaN(day) || month === undefined) return 30;
+  const showDate = new Date(2026, month, day);
+  const now = new Date();
+  const daysSince = Math.floor((now - showDate) / (1000 * 60 * 60 * 24));
+  if (daysSince <= 7) return 7;
+  if (daysSince <= 30) return 30;
+  if (daysSince <= 90) return 90;
+  return 180;
+}
+
+async function fetchTwitter(city, _unused, showDate) {
+  const publishTime = getPublishTimeParam(showDate);
+  const cityShort = city.replace(/— Night \d/,'').split(',')[0].trim();
+
+  const queries = [
+    'conangray',
+    '#conangray',
+    '#wishboneworldtour',
+    `conan gray ${cityShort}`,
+    '#heatherconangray',
+    'conangray wishbone'
+  ];
+
+  let allTweets = [];
+
+  for (const q of queries) {
+    try {
+      const url = `/api/twitter?query=${encodeURIComponent(q)}`;
+      const resp = await fetch(url);
+
+      if (!resp.ok) { console.warn(`Twitter HTTP ${resp.status} for: ${q}`); continue; }
+
+      const data = await resp.json();
+      console.log(`[Twitter: ${q}] raw:`, JSON.stringify(data).slice(0, 300));
+
+      const tweets =
+        data?.result?.timeline?.instructions?.flatMap(i =>
+          i?.entries?.flatMap(e =>
+            e?.content?.itemContent?.tweet_results?.result ? [e.content.itemContent.tweet_results.result] :
+            e?.content?.items?.flatMap(it => it?.item?.itemContent?.tweet_results?.result ? [it.item.itemContent.tweet_results.result] : []) || []
+          ) || []
+        ) || data?.tweets || data?.data || [];
+
+      if (Array.isArray(tweets)) allTweets.push(...tweets);
+      await new Promise(r => setTimeout(r, 400));
+    } catch(e) {
+      console.warn('Twitter query failed:', q, e);
+    }
+  }
+
+  // Deduplicate
+  const seen = new Set();
+  const unique = allTweets.filter(t => {
+    const id = t?.rest_id || t?.id || t?.id_str || Math.random();
+    if (seen.has(id)) return false;
+    seen.add(id); return true;
+  });
+
+  // Process into clean objects
+  return unique.map(t => {
+    const core = t?.legacy || t?.tweet || t;
+    const user = t?.core?.user_results?.result?.legacy || t?.user || {};
+    const text = core?.full_text || core?.text || '';
+    const ts = core?.created_at ? new Date(core.created_at) : null;
+
+    return {
+      id: t?.rest_id || core?.id_str || '',
+      text,
+      date: ts ? ts.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) : '',
+      likes: core?.favorite_count || 0,
+      retweets: core?.retweet_count || 0,
+      replies: core?.reply_count || 0,
+      views: core?.views?.count || 0,
+      author: user?.screen_name || user?.name || '',
+      authorName: user?.name || '',
+      url: core?.id_str ? `https://x.com/${user?.screen_name}/status/${core.id_str}` : '',
+      sentiment: categorizeTweet(text)
+    };
+  }).filter(t => t.text);
+}
+
+function categorizeTweet(text) {
+  const t = text.toLowerCase();
+  if (['amazing','incredible','best night','obsessed','love her','crying','sobbing','life changing','never seen','so good','incredible','perfect'].some(k => t.includes(k))) return 'love';
+  if (['setlist','heather','astronomy','maniac','people watching','family line','surprise song','he played','he sang','he performed','wishbone'].some(k => t.includes(k))) return 'setlist';
+  if (['outfit','dress','wearing','fashion','style','looks','wore'].some(k => t.includes(k))) return 'fashion';
+  if (['tickets','sold out','cant wait','going to','see her','tour date','so excited'].some(k => t.includes(k))) return 'hype';
+  if (['disappointed','bad','worst','terrible','boring','overrated'].some(k => t.includes(k))) return 'negative';
+  return 'general';
+}
+
+function processTwitterData(tweets) {
+  const sentimentCounts = {};
+  tweets.forEach(t => {
+    sentimentCounts[t.sentiment] = (sentimentCounts[t.sentiment] || 0) + 1;
+  });
+
+  const topTweets = [...tweets].sort((a,b) => (b.likes + b.retweets*2) - (a.likes + a.retweets*2)).slice(0, 20);
+
+  // Extract mentioned songs
+  const SONGS = ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god'];
+  const songMentions = {};
+  tweets.forEach(t => {
+    SONGS.forEach(s => {
+      if (t.text.toLowerCase().includes(s)) songMentions[s] = (songMentions[s] || 0) + 1;
+    });
+  });
+  const topSongMentions = Object.entries(songMentions).sort((a,b) => b[1]-a[1]).slice(0, 6);
+
+  return { tweets: topTweets, allTweets: tweets, sentimentCounts, topSongMentions, totalTweets: tweets.length };
+}
+
+async function fetchTikToks(city, _unused, showDate) {
+  const publishTime = getPublishTimeParam(showDate);
+  const cityShort = city.replace(/— Night \d/,'').split(',')[0].trim().toLowerCase().replace(/\s/g,'');
+  const night = city.includes('Night 2') ? '2' : city.includes('Night 1') ? '1' : '';
+
+  const queries = [
+    { q: 'conangray', pt: publishTime },
+    { q: '#conangray', pt: publishTime },
+    { q: '#wishboneworldtour', pt: publishTime },
+    { q: 'conan gray concert', pt: publishTime },
+    { q: `conangray ${cityShort}`, pt: 180 },
+    { q: `#conangray #${cityShort}`, pt: 180 },
+    { q: 'conangray outfit', pt: publishTime },
+    { q: 'conan gray heather live', pt: publishTime },
+    { q: 'conangray tour 2026', pt: publishTime },
+    { q: '#wishbone conangray', pt: publishTime },
+    { q: '#heatherconangray', pt: publishTime },
+  ];
+
+  if (night) queries.push({ q: `conangray night${night}`, pt: 90 });
+
+  let allVideos = [];
+
+  for (const { q, pt } of queries) {
+    try {
+      const url = `/api/tiktok?keywords=${encodeURIComponent(q)}&publish_time=${pt}`;
+      const resp = await fetch(url);
+
+      if (!resp.ok) { console.warn(`HTTP ${resp.status} for: ${q}`); continue; }
+
+      const data = await resp.json();
+      console.log(`[${q} | pt=${pt}] raw:`, JSON.stringify(data).slice(0, 200));
+
+      const items =
+        data?.data?.videos ||
+        data?.data?.list ||
+        data?.data ||
+        data?.videos ||
+        data?.list ||
+        data?.aweme_list ||
+        [];
+
+      if (Array.isArray(items)) allVideos.push(...items);
+      await new Promise(r => setTimeout(r, 350));
+    } catch(e) {
+      console.warn('Query failed:', q, e);
+    }
+  }
+
+  const seen = new Set();
+  return allVideos.filter(v => {
+    const id = v.video_id || v.aweme_id || v.id || Math.random();
+    if (seen.has(id)) return false;
+    seen.add(id); return true;
+  });
+}
+
+function categorizeVideo(caption, hashtags, sound) {
+  const text = (caption + ' ' + hashtags.join(' ')).toLowerCase();
+  const soundLower = (sound || '').toLowerCase();
+
+  const CONAN_SONGS = ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','mr davis','house of plagues','wishbone','found heaven','sunny days','crisis','winner','the exit','never ending song','jigsaw','research','greek god','anne','overture','ghost town','the best'];
+
+  if (['outfit','ootd','fit check','fits','wearing','dressed','fashion','style','clothes','boots','dress','hat','cowboy'].some(k => text.includes(k)))
+    return 'outfit';
+  if (['concert','show','live','setlist','performance','arena','united center','venue','tour','front row','pit','floor','section'].some(k => text.includes(k)))
+    return 'concert';
+  if (CONAN_SONGS.some(s => soundLower.includes(s) || text.includes(s)))
+    return 'lyrics';
+  if (['crying','crying to','sobbing','emotional','tears','omg','literally','obsessed','freaking out','she performed','she sang'].some(k => text.includes(k)))
+    return 'reaction';
+  if (['edit','fyp','foryou','viral','trend','pov'].some(k => text.includes(k)))
+    return 'edit';
+  if (['meet','met her','backstage','vip','m&g','meet and greet'].some(k => text.includes(k)))
+    return 'meetgreet';
+  return 'general';
+}
+
+const CATEGORY_LABELS = {
+  concert: { label: 'Concert & Show', color: '#e8437a', emoji: '🎤' },
+  outfit: { label: 'Outfit & Fashion', color: '#ff6ba8', emoji: '👗' },
+  lyrics: { label: 'Lyrics & Sounds', color: '#c97ba8', emoji: '🎵' },
+  reaction: { label: 'Fan Reactions', color: '#a855a0', emoji: '😭' },
+  edit: { label: 'Edits & FYP', color: '#7b5ea7', emoji: '✨' },
+  meetgreet: { label: 'Meet & Greet', color: '#e8437a', emoji: '🤝' },
+  general: { label: 'General', color: '#5a3d48', emoji: '📱' }
+};
+
+function processVideos(rawVideos) {
+  const videos = rawVideos.map(v => {
+    const info = v.aweme_info || v;
+    const authorId = info.author?.unique_id || info.author?.uniqueId || info.authorMeta?.name || '';
+    const videoId = info.video_id || info.aweme_id || info.id || '';
+    const caption = info.title || info.desc || info.content_desc || info.description || '';
+    const hashtags = extractHashtags(caption);
+    const sound = info.music_info?.title || info.music?.title || info.musicMeta?.musicName || '';
+    const soundArtist = info.music_info?.author || info.music?.author || info.musicMeta?.musicAuthor || '';
+
+    // Date from create_time (Unix seconds)
+    const rawTs = info.create_time || info.createTime || 0;
+    const postDate = rawTs ? new Date(rawTs * 1000) : null;
+    const postDateStr = postDate ? postDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+
+    // URL — use numeric video_id with author unique_id
+    let url = '';
+    if (info.share_url && info.share_url.includes('tiktok.com/')) {
+      url = info.share_url;
+    } else if (authorId && videoId && /^\d+$/.test(videoId)) {
+      url = `https://www.tiktok.com/@${authorId}/video/${videoId}`;
+    } else if (authorId && info.video_id && /^\d+$/.test(info.video_id)) {
+      url = `https://www.tiktok.com/@${authorId}/video/${info.video_id}`;
+    }
+
+    // Debug log ALL fields of first 3 videos
+    if (rawVideos.indexOf(v) < 3) {
+      console.log('=== RAW VIDEO', rawVideos.indexOf(v), '===');
+      console.log('TOP LEVEL KEYS:', Object.keys(info).join(', '));
+      console.log('author:', JSON.stringify(info.author));
+      console.log('authorMeta:', JSON.stringify(info.authorMeta));
+      console.log('video_id:', info.video_id);
+      console.log('aweme_id:', info.aweme_id);
+      console.log('id:', info.id);
+      console.log('share_url:', info.share_url);
+      console.log('video_url:', info.video_url);
+      console.log('play_url:', info.play_url);
+      console.log('create_time:', info.create_time);
+      console.log('createTime:', info.createTime);
+      console.log('music:', JSON.stringify(info.music)?.slice(0,200));
+    }
+
+    const category = categorizeVideo(caption, hashtags, sound);
+
+    return {
+      id: videoId,
+      caption,
+      views: info.play_count || info.statistics?.play_count || info.stats?.playCount || 0,
+      likes: info.digg_count || info.statistics?.digg_count || info.stats?.diggCount || 0,
+      comments: info.comment_count || info.statistics?.comment_count || info.stats?.commentCount || 0,
+      shares: info.share_count || info.statistics?.share_count || 0,
+      sound,
+      soundArtist,
+      hashtags,
+      url,
+      author: authorId,
+      postDate: postDateStr,
+      category
+    };
+  }).filter(v => v.id || v.url);
+
+  // Sort by views desc
+  videos.sort((a, b) => (b.views || 0) - (a.views || 0));
+
+  // Category breakdown
+  const categories = {};
+  videos.forEach(v => {
+    categories[v.category] = (categories[v.category] || 0) + 1;
+  });
+
+  // Sound counts
+  const soundCounts = {};
+  const soundArtists = {};
+  videos.forEach(v => {
+    if (v.sound) {
+      soundCounts[v.sound] = (soundCounts[v.sound] || 0) + 1;
+      soundArtists[v.sound] = v.soundArtist;
+    }
+  });
+  const topSounds = Object.entries(soundCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([name, count]) => ({ name, count, artist: soundArtists[name] || '' }));
+
+  // Hashtag counts
+  const hashtagCounts = {};
+  videos.forEach(v => v.hashtags.forEach(h => {
+    hashtagCounts[h] = (hashtagCounts[h] || 0) + 1;
+  }));
+  const hashtags = Object.entries(hashtagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 20)
+    .map(([tag, count]) => ({ tag, count }));
+
+  const topHashtag = hashtags[0]?.tag ? '#' + hashtags[0].tag : '—';
+
+  return { videos, topSounds, hashtags, topHashtag, categories, themes: [], sentiments: [] };
+}
+
+function extractHashtags(text) {
+  return (text.match(/#(\w+)/g) || []).map(h => h.slice(1).toLowerCase());
+}
+
+function copyForClaude() {
+  const allData = state.cities.map(city => {
+    const report = state.reports[city.id];
+    if (!report || !report.videos.length) return null;
+
+    const byCategory = {};
+    report.videos.forEach(v => {
+      if (!byCategory[v.category]) byCategory[v.category] = [];
+      byCategory[v.category].push(v);
+    });
+
+    const categoryBreakdown = Object.entries(byCategory).map(([cat, vids]) => ({
+      category: CATEGORY_LABELS[cat]?.label || cat,
+      count: vids.length,
+      topVideos: vids.slice(0, 5).map(v => ({
+        caption: v.caption,
+        views: v.views,
+        sound: v.sound,
+        url: v.url
+      }))
+    }));
+
+    return {
+      city: city.name,
+      date: city.date,
+      venue: city.venue,
+      videoCount: report.videos.length,
+      totalViews: report.videos.reduce((s, v) => s + (v.views || 0), 0),
+      topSounds: report.topSounds.slice(0, 8).map(s => `${s.name}${s.artist ? ' by ' + s.artist : ''} (${s.count} videos)`),
+      topHashtags: report.hashtags.slice(0, 12).map(h => `#${h.tag} (${h.count})`),
+      categoryBreakdown,
+      topVideosByViews: report.videos.slice(0, 10).map(v => ({
+        caption: v.caption,
+        views: v.views,
+        likes: v.likes,
+        sound: v.sound,
+        category: CATEGORY_LABELS[v.category]?.label || v.category,
+        url: v.url
+      }))
+    };
+  }).filter(Boolean);
+
+  if (!allData.length) {
+    document.getElementById('copyStatus').textContent = 'No data to export — sync first';
+    return;
+  }
+
+  const prompt = `You are analyzing TikTok UGC data for Conan Gray's Wishbone World Tour management team. The goal is to understand what fans are posting about after each show so we can inform his social media strategy.
+
+For each city, analyze:
+1. SOUNDS & AUDIO: Which of his songs are fans using as sounds? Any non-Conan sounds being paired with his content? What does this tell us about which songs are resonating most?
+2. CONCERT CONTENT: What are fans capturing from the show? Specific moments, setlist reactions, venue atmosphere? What's going viral?
+3. OUTFITS & FASHION: What fashion content is emerging? Are fans posting their own outfits or his?
+4. FAN REACTIONS: What emotional responses are showing up? What lyrics or moments are hitting hardest?
+5. CONTENT OPPORTUNITIES: Based on what fans are already posting, what should Conan's team be creating or amplifying on his own channels?
+6. SOCIAL STRATEGY TAKEAWAY: One sharp, specific, actionable recommendation for his social team.
+
+Then give an OVERALL CROSS-MARKET TRENDS section comparing patterns across all cities.
+
+Here is the data:
+
+${JSON.stringify(allData, null, 2)}
+
+Be specific, direct, and strategic. This is for professional music industry use. Reference specific captions, sounds, and video examples where possible.`;
+
+  navigator.clipboard.writeText(prompt).then(() => {
+    document.getElementById('copyStatus').textContent = '✓ Copied! Paste into Claude.ai';
+    setTimeout(() => document.getElementById('copyStatus').textContent = '', 3000);
+  });
+}
+
+function applyAnalysis() {
+  const text = document.getElementById('analysisInput').value.trim();
+  if (!text) return;
+
+  const activeCity = state.cities.find(c => c.id === state.activeCity);
+  if (!activeCity || !state.reports[activeCity.id]) return;
+
+  const sections = parseAnalysisText(text, activeCity.name);
+  state.reports[activeCity.id].analysis = sections;
+  state.reports[activeCity.id].themes = extractThemesFromText(sections.themes || '');
+  state.reports[activeCity.id].sentiments = extractSentimentsFromText(sections.sentiment || '');
+  saveState();
+  renderMain();
+
+  document.getElementById('analysisInput').value = '';
+  setRunStatus('Analysis applied ✓', 'done');
+}
+
+function parseAnalysisText(text, cityName) {
+  const wrap = s => s ? `<p>${s.replace(/\n+/g, '</p><p>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>` : '';
+
+  const soundsMatch = text.match(/SOUNDS?[:\s]+([\s\S]+?)(?=THEMES?|SENTIMENT|TAKEAWAY|OVERALL|\n\n[A-Z]|$)/i);
+  const themesMatch = text.match(/THEMES?[:\s]+([\s\S]+?)(?=SOUNDS?|SENTIMENT|TAKEAWAY|OVERALL|\n\n[A-Z]|$)/i);
+  const sentMatch = text.match(/SENTIMENT[:\s]+([\s\S]+?)(?=SOUNDS?|THEMES?|TAKEAWAY|OVERALL|\n\n[A-Z]|$)/i);
+  const takeMatch = text.match(/TAKEAWAY[:\s]+([\s\S]+?)(?=SOUNDS?|THEMES?|SENTIMENT|OVERALL|\n\n[A-Z]|$)/i);
+
+  return {
+    sounds: wrap((soundsMatch?.[1] || '').trim()),
+    themes: wrap((themesMatch?.[1] || '').trim()),
+    sentiment: wrap((sentMatch?.[1] || '').trim()),
+    takeaway: wrap((takeMatch?.[1] || text).trim())
+  };
+}
+
+function extractThemesFromText(html) {
+  const keywords = ['outfit', 'setlist', 'emotional', 'friends', 'crowd', 'venue', 'backstage', 'meet', 'cry', 'dance', 'sing', 'reaction', 'merch', 'tailgate'];
+  return keywords.filter(k => html.toLowerCase().includes(k)).slice(0, 6).map(k => k.charAt(0).toUpperCase() + k.slice(1) + ' content');
+}
+
+function extractSentimentsFromText(html) {
+  const keywords = ['excited', 'nostalgic', 'emotional', 'joyful', 'heartbroken', 'electric', 'grateful', 'obsessed', 'loving', 'crying'];
+  return keywords.filter(k => html.toLowerCase().includes(k)).slice(0, 5).map(k => k.charAt(0).toUpperCase() + k.slice(1));
+}
+
+
+function setRunStatus(msg, type) {
+  const el = document.getElementById('runStatus');
+  el.textContent = msg;
+  el.className = 'run-status' + (type ? ' ' + type : '');
+}
+
+function setProgress(pct) {
+  document.getElementById('progressFill').style.width = Math.round(pct) + '%';
+}
+
+function fmtNum(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return String(n);
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+function confirmClear() {
+  state.reports = {};
+  state.cities = [];
+  state.activeCity = null;
+  saveState();
+  closeModal();
+  renderSidebar();
+  renderMain();
+}
+
+loadState();
+renderSidebar();
+renderMain();
+
+const lastRun = localStorage.getItem('last_run');
+if (lastRun) document.getElementById('lastRunDisplay').innerHTML = `Last synced <span>${lastRun}</span>`;
+</script>
+
+<!-- TICKETS VIEW -->
+<div id="view-tickets" style="display:none;">
+  <div class="tickets-layout">
+
+    <div class="tickets-topbar">
+      <div>
+        <div class="tickets-title"><em>Wishbone World Tour</em> — Ticket Sales</div>
+        <div class="tickets-as-of" id="tktAsOf">Upload a sales file to get started</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="tickets-filter-bar" id="tktFilterBar" style="display:none;">
+          <button class="tkt-filter active" onclick="setTktFilter('all')">All shows</button>
+          <button class="tkt-filter" onclick="setTktFilter('upcoming')">Upcoming only</button>
+          <button class="tkt-filter" onclick="setTktFilter('attention')">Needs attention</button>
+        </div>
+        <label class="tickets-upload-btn" for="tktFileInput">↑ Upload new file</label>
+        <input type="file" id="tktFileInput" accept=".xlsx" style="display:none;" onchange="handleTktUpload(event)" />
+      </div>
+    </div>
+
+    <div class="tickets-totals" id="tktTotals" style="display:none;"></div>
+
+    <div id="tktTableWrap" style="display:none;">
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>City</th>
+            <th>Venue</th>
+            <th class="num">Cap</th>
+            <th class="num">Sold</th>
+            <th class="num">Avail</th>
+            <th>Fill</th>
+            <th class="num">WoW</th>
+          </tr>
+        </thead>
+        <tbody id="tktBody"></tbody>
+      </table>
+    </div>
+
+    <div class="upload-drop-zone" id="tktDropZone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleTktDrop(event)">
+      <div style="font-size:28px;margin-bottom:12px;">📊</div>
+      <p>Drop your weekly <strong style="color:var(--ink2);">Ticket Sales .xlsx</strong> here<br>or <span onclick="document.getElementById('tktFileInput').click()">click to browse</span></p>
+      <p style="font-size:11px;margin-top:8px;">Works with the same file format week over week — just upload the latest version</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Tickets tab ──────────────────────────────────────────────────────────────
+let tktShows = [];
+let tktFilter = 'all';
+let tktAsOfDate = '';
+
+const TKT_REGIONS = [
+  { label: 'UK & Ireland', match: c => ['UK','Ireland'].includes(c) },
+  { label: 'Europe', match: c => ['Netherlands','The Netherlands','Belgium','Germany','France','Norway','Sweden','Denmark','Poland','Czech Republic','Austria','Italy','Spain','Portugal','Switzerland'].includes(c) },
+  { label: 'Australia & New Zealand', match: c => ['Australia','New Zealand'].includes(c) },
+  { label: 'North America', match: c => ['United States','US','Canada'].includes(c) },
+  { label: 'Other', match: c => true }
+];
+
+function setTktFilter(f) {
+  tktFilter = f;
+  document.querySelectorAll('.tkt-filter').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(f === 'all' ? 'all' : f === 'upcoming' ? 'upcoming' : 'attention'));
+  });
+  renderTktTable();
+}
+
+function handleTktDrop(e) {
+  e.preventDefault();
+  document.getElementById('tktDropZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) parseTktFile(file);
+}
+
+function handleTktUpload(e) {
+  const file = e.target.files[0];
+  if (file) parseTktFile(file);
+}
+
+function parseTktFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const wb = XLSX.read(data, { type: 'array', cellDates: true });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const raw = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+      processTktData(raw);
+    } catch(err) {
+      console.error('Parse error:', err);
+      document.getElementById('tktAsOf').innerHTML = '<span style="color:#e57373;">Error reading file — check format</span>';
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function processTktData(raw) {
+  // Find header row: has 'Day','Date','Country','City','Venue','Cap' in first 6 cols
+  let headerRowIdx = -1;
+  for (let i = 0; i < raw.length; i++) {
+    const r = raw[i];
+    if (r[0] === 'Day' && r[1] === 'Date' && r[2] === 'Country') { headerRowIdx = i; break; }
+  }
+  if (headerRowIdx < 0) { alert('Could not find header row. Check file format.'); return; }
+
+  const header = raw[headerRowIdx];
+  // Date columns start at index 8
+  const dateCols = [];
+  for (let c = 8; c < header.length; c++) {
+    const v = header[c];
+    if (v instanceof Date) {
+      dateCols.push({ col: c, date: v });
+    } else if (typeof v === 'number' && v > 40000) {
+      // Excel serial date
+      const d = new Date(Math.round((v - 25569) * 86400 * 1000));
+      dateCols.push({ col: c, date: d });
+    }
+  }
+  // Sort descending (most recent first) — they should already be
+  dateCols.sort((a, b) => b.date - a.date);
+
+  const mostRecent = dateCols[0]?.date;
+  const prevWeek = dateCols[1]?.date;
+  tktAsOfDate = mostRecent ? mostRecent.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+
+  const today = new Date();
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const shows = [];
+
+  for (let i = headerRowIdx + 1; i < raw.length; i++) {
+    const r = raw[i];
+    if (!r[0] || !['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].includes(r[0])) continue;
+    const showDateRaw = r[1];
+    if (!showDateRaw) continue;
+    const showDate = showDateRaw instanceof Date ? showDateRaw : new Date(Math.round((showDateRaw - 25569) * 86400 * 1000));
+    if (isNaN(showDate)) continue;
+
+    const cap = typeof r[5] === 'number' ? Math.round(r[5]) : 0;
+    if (!cap) continue;
+
+    // Status row (next row)
+    const statusRow = raw[i + 1] || [];
+
+    // Get latest ticket count
+    let sold = 0, soldOut = false;
+    for (const { col } of dateCols) {
+      const sv = statusRow[col];
+      if (typeof sv === 'string' && sv.toUpperCase().includes('SOLD OUT')) { soldOut = true; sold = cap; break; }
+      const v = r[col];
+      if (typeof v === 'number' && v > 10) { sold = Math.round(v); break; }
+    }
+
+    // Previous week count
+    let prevSold = 0;
+    if (prevWeek && dateCols[1]) {
+      const pv = r[dateCols[1].col];
+      const ps = statusRow[dateCols[1].col];
+      if (typeof ps === 'string' && ps.toUpperCase().includes('SOLD OUT')) prevSold = cap;
+      else if (typeof pv === 'number' && pv > 10) prevSold = Math.round(pv);
+    }
+
+    const played = showDate < today;
+    const pct = cap ? Math.round(sold / cap * 100) : 0;
+    const wow = prevSold ? sold - prevSold : null;
+
+    shows.push({
+      day: r[0],
+      showDate,
+      dateStr: showDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      country: r[2] || '',
+      city: r[3] || '',
+      venue: r[4] || '',
+      cap, sold, prevSold, wow, pct, soldOut, played,
+      needsAttention: !played && !soldOut && pct < 70
+    });
+  }
+
+  tktShows = shows;
+  renderTktSummary();
+  renderTktTable();
+
+  document.getElementById('tktDropZone').style.display = 'none';
+  document.getElementById('tktTotals').style.display = 'grid';
+  document.getElementById('tktTableWrap').style.display = 'block';
+  document.getElementById('tktFilterBar').style.display = 'flex';
+  document.getElementById('tktAsOf').innerHTML = `Data as of <span>${tktAsOfDate}</span>`;
+}
+
+function renderTktSummary() {
+  const upcoming = tktShows.filter(s => !s.played);
+  const totalUpCap = upcoming.reduce((a, s) => a + s.cap, 0);
+  const totalUpSold = upcoming.reduce((a, s) => a + s.sold, 0);
+  const upRemaining = totalUpCap - totalUpSold;
+  const needsAttn = upcoming.filter(s => s.needsAttention).length;
+  const soldOutCount = tktShows.filter(s => s.soldOut).length;
+
+  document.getElementById('tktTotals').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Upcoming shows</div><div class="stat-value">${upcoming.length}</div><div class="stat-sub">of ${tktShows.length} total</div></div>
+    <div class="stat-card"><div class="stat-label">Upcoming capacity</div><div class="stat-value">${fmtNum(totalUpCap)}</div><div class="stat-sub">${fmtNum(totalUpSold)} sold (${totalUpCap ? Math.round(totalUpSold/totalUpCap*100) : 0}%)</div></div>
+    <div class="stat-card"><div class="stat-label">Available</div><div class="stat-value">${fmtNum(upRemaining)}</div><div class="stat-sub">upcoming tickets</div></div>
+    <div class="stat-card" style="${needsAttn ? 'border-color:rgba(229,115,115,0.4);background:rgba(229,115,115,0.06)' : ''}"><div class="stat-label">Needs attention</div><div class="stat-value" style="${needsAttn ? 'color:#e57373' : ''}">${needsAttn}</div><div class="stat-sub">shows under 70%</div></div>
+  `;
+}
+
+function renderTktTable() {
+  const body = document.getElementById('tktBody');
+  let shows = tktShows;
+  if (tktFilter === 'upcoming') shows = shows.filter(s => !s.played);
+  if (tktFilter === 'attention') shows = shows.filter(s => s.needsAttention);
+
+  let html = '';
+  const usedRegions = new Set();
+
+  shows.forEach(s => {
+    // Region header
+    const region = TKT_REGIONS.find(r => r.match(s.country));
+    const regionKey = region?.label || 'Other';
+    if (!usedRegions.has(regionKey)) {
+      usedRegions.add(regionKey);
+      // Subtotal if previous region exists
+      html += `<tr class="region-row"><td colspan="8">${regionKey}</td></tr>`;
+    }
+
+    const pct = s.pct;
+    const barColor = s.soldOut ? 'var(--rose)' : pct >= 85 ? 'var(--sage)' : pct >= 60 ? 'var(--gold)' : '#e57373';
+    const pctStyle = pct >= 85 ? 'color:var(--sage)' : pct >= 60 ? 'color:var(--gold)' : 'color:#e57373';
+    const avail = s.cap - s.sold;
+
+    let badge = '';
+    if (s.played) badge = '<span class="t-badge t-badge-played">Played</span>';
+    else if (s.soldOut) badge = '<span class="t-badge t-badge-sold-out">Sold Out</span>';
+    else if (s.needsAttention) badge = '<span class="t-badge t-badge-low">Low</span>';
+
+    let wowHtml = '<span class="wow-flat">—</span>';
+    if (s.wow !== null && !s.played) {
+      if (s.wow > 0) wowHtml = `<span class="wow-up">+${s.wow.toLocaleString()}</span>`;
+      else if (s.wow < 0) wowHtml = `<span class="wow-dn">${s.wow.toLocaleString()}</span>`;
+      else wowHtml = '<span class="wow-flat">—</span>';
+    }
+
+    html += `<tr class="${s.played ? 't-played' : ''} ${s.soldOut ? 't-sold-out' : ''}">
+      <td style="font-size:11px;color:var(--ink4);">${s.dateStr} <span style="opacity:0.5">${s.day}</span></td>
+      <td class="t-city">${esc(s.city)}${badge}</td>
+      <td style="font-size:12px;color:var(--ink4);">${esc(s.venue)}</td>
+      <td class="num">${s.cap.toLocaleString()}</td>
+      <td class="num">${s.sold.toLocaleString()}</td>
+      <td class="num" style="${avail <= 0 ? 'color:var(--ink4)' : avail < 300 ? 'color:var(--rose)' : ''}">${avail <= 0 ? '—' : avail.toLocaleString()}</td>
+      <td>
+        <div class="fill-bar-wrap">
+          <div class="fill-bar"><div class="fill-bar-fill" style="width:${Math.min(100,pct)}%;background:${barColor}"></div></div>
+          <span class="fill-pct" style="${pctStyle}">${pct}%</span>
+        </div>
+      </td>
+      <td class="num">${wowHtml}</td>
+    </tr>`;
+  });
+
+  if (!html) {
+    html = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--ink4);">No shows match this filter</td></tr>`;
+  }
+
+  body.innerHTML = html;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/tiktok", "destination": "/api/tiktok" },
+    { "source": "/api/twitter", "destination": "/api/twitter" }
+  ]
+}
