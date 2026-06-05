@@ -744,10 +744,19 @@ body {
 .upload-drop-zone:hover, .upload-drop-zone.drag-over { border-color: var(--rose); background: rgba(108,99,255,0.04); }
 .upload-drop-zone p { font-size: 13px; color: var(--ink4); line-height: 1.7; }
 .upload-drop-zone span { color: var(--rose); cursor: pointer; text-decoration: underline; }
+
+#password-gate { position:fixed; inset:0; z-index:9999; background:#070810; background-image:radial-gradient(ellipse at 20% 50%,#1a1040 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#0d0a30 0%,transparent 50%); display:flex; align-items:center; justify-content:center; }
+.gate-box { text-align:center; width:100%; max-width:340px; padding:2rem; }
+.gate-wordmark { font-family:"Cormorant Garamond",serif; font-size:22px; font-weight:300; font-style:italic; color:#e8eaf6; letter-spacing:0.04em; margin-bottom:2rem; }
+.gate-wordmark em { font-style:normal; color:#6c63ff; font-weight:400; }
+.gate-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(232,234,246,0.15); border-radius:8px; padding:11px 16px; font-size:14px; color:#e8eaf6; font-family:"Montserrat",sans-serif; outline:none; text-align:center; letter-spacing:0.08em; margin-bottom:12px; }
+.gate-input:focus { border-color:#6c63ff; }
+.gate-btn { width:100%; background:linear-gradient(135deg,#6c63ff,#4f46e5); color:white; border:none; border-radius:8px; padding:11px; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; font-family:"Montserrat",sans-serif; }
+.gate-error { font-size:11px; color:#e57373; margin-top:10px; min-height:16px; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
-<body>
+<body><div id="password-gate"><div class="gate-box"><div class="gate-wordmark"><em>Live From The Internet</em> — Conan Gray</div><input class="gate-input" type="password" id="gateInput" placeholder="Enter password" onkeydown="if(event.key===chr(39)Enter chr(39))checkPassword()" autofocus /><button class="gate-btn" onclick="checkPassword()">Enter</button><div class="gate-error" id="gateError"></div></div></div>
 
 <div class="header">
   <div class="header-left">
@@ -2451,5 +2460,5 @@ function renderTktTable() {
 }
 </script>
 
-</body>
+<script>(function(){function h(s){let n=0;for(let i=0;i<s.length;i++){n=((n<<5)-n)+s.charCodeAt(i);n=n&n;}return Math.abs(n).toString(16).padStart(8,"0");}const P=h("claudelovesconan");function checkPassword(){const v=document.getElementById("gateInput").value;if(h(v)===P){sessionStorage.setItem("tpauth",P);document.getElementById("password-gate").style.display="none";}else{document.getElementById("gateError").textContent="Incorrect password";document.getElementById("gateInput").value="";}}window.checkPassword=checkPassword;if(sessionStorage.getItem("tpauth")===P){document.addEventListener("DOMContentLoaded",function(){var g=document.getElementById("password-gate");if(g)g.style.display="none";});}})();</script></body>
 </html>
