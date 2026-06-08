@@ -848,51 +848,7 @@ body {
 .correlation-tiktok { font-size: 11px; color: var(--rose); }
 .correlation-spotify { font-size: 11px; color: #1db954; }
 
-/* Pulse tab */
-.pulse-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
-.pulse-topbar { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 12px; }
-.pulse-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--ink); font-weight: 300; font-style: italic; }
-.pulse-title em { font-style: normal; color: var(--rose); }
-.pulse-meta { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
-.pulse-meta span { color: var(--sage); }
-.pulse-section { margin-bottom: 2rem; }
-.pulse-section-header { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(108,99,255,0.15); }
-.alert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.alert-card { background: rgba(108,99,255,0.07); border: 1px solid rgba(108,99,255,0.25); border-radius: 10px; padding: 1rem 1.25rem; }
-.alert-card.alert-high { border-color: rgba(129,200,132,0.4); background: rgba(129,200,132,0.06); }
-.alert-card.alert-low { border-color: rgba(229,115,115,0.3); background: rgba(229,115,115,0.05); }
-.alert-city { font-size: 14px; color: var(--ink2); font-weight: 500; margin-bottom: 4px; }
-.alert-msg { font-size: 12px; color: var(--ink4); line-height: 1.5; }
-.alert-stat { font-size: 18px; font-family: 'Cormorant Garamond', serif; font-weight: 300; margin-bottom: 4px; }
-.alert-stat.up { color: #81c784; }
-.alert-stat.down { color: #e57373; }
-.alert-stat.neutral { color: var(--sage); }
-.pulse-video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
-.pulse-video-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; cursor: pointer; transition: border-color 0.15s; }
-.pulse-video-card:hover { border-color: var(--rose); }
-.pulse-video-caption { font-size: 12px; color: var(--ink2); line-height: 1.5; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.pulse-video-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.pulse-video-views { font-size: 13px; color: var(--rose); font-weight: 600; }
-.pulse-video-city { font-size: 10px; color: var(--ink4); background: var(--border2); padding: 2px 8px; border-radius: 10px; }
-.pulse-sounds-list { display: flex; flex-direction: column; gap: 4px; max-width: 700px; }
-.pulse-sound-row { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.02); border: 1px solid var(--border2); }
-.pulse-sound-rank { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--ink4); min-width: 20px; }
-.pulse-sound-name { flex: 1; font-size: 13px; color: var(--ink2); }
-.pulse-sound-name.own { color: var(--rose); }
-.pulse-sound-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.pulse-sound-bar { width: 100px; height: 3px; background: var(--border2); border-radius: 2px; }
-.pulse-sound-bar-fill { height: 100%; border-radius: 2px; }
-.pulse-sound-count { font-size: 11px; color: var(--ink4); min-width: 60px; text-align: right; }
-.pulse-city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-.pulse-city-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
-.pulse-city-name { font-size: 13px; color: var(--ink2); font-weight: 500; margin-bottom: 4px; }
-.pulse-city-count { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--rose); font-weight: 300; }
-.pulse-city-sub { font-size: 10px; color: var(--ink4); margin-top: 2px; }
-.pulse-hashtag-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-.pulse-hashtag { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); color: var(--ink3); }
-.pulse-hashtag.breakout { border-color: rgba(108,99,255,0.4); color: var(--rose); background: rgba(108,99,255,0.08); }
-.sentiment-bar-wrap { display: flex; height: 24px; border-radius: 12px; overflow: hidden; max-width: 500px; margin-bottom: 12px; }
-.sentiment-segment { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: white; }
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -918,7 +874,7 @@ body {
 
 <div class="top-nav">
   <div class="top-nav-btn active" id="nav-hub" onclick="switchView('hub')">Tour Hub</div>
-  <div class="top-nav-btn" id="nav-pulse" onclick="switchView('pulse')">✦ Pulse</div>
+  <div class="top-nav-btn" id="nav-pulse" onclick="switchView('pulse')">Pulse</div>
   <div class="top-nav-btn" id="nav-reports" onclick="switchView('reports')">Reports</div>
   <div class="top-nav-btn" id="nav-tickets" onclick="switchView('tickets')">Tickets</div>
   <div class="top-nav-btn" id="nav-spotify" onclick="switchView('spotify')">Spotify</div>
@@ -1019,13 +975,13 @@ let state = {
 function switchView(view) {
   state.activeView = view;
   document.getElementById('view-hub').style.display = view === 'hub' ? 'block' : 'none';
-  document.getElementById('view-reports').style.display = view === 'reports' ? 'block' : 'none';
   document.getElementById('view-pulse').style.display = view === 'pulse' ? 'block' : 'none';
+  document.getElementById('view-reports').style.display = view === 'reports' ? 'block' : 'none';
   document.getElementById('view-tickets').style.display = view === 'tickets' ? 'block' : 'none';
   document.getElementById('view-spotify').style.display = view === 'spotify' ? 'block' : 'none';
   document.getElementById('nav-hub').classList.toggle('active', view === 'hub');
-  document.getElementById('nav-reports').classList.toggle('active', view === 'reports');
   document.getElementById('nav-pulse').classList.toggle('active', view === 'pulse');
+  document.getElementById('nav-reports').classList.toggle('active', view === 'reports');
   document.getElementById('nav-tickets').classList.toggle('active', view === 'tickets');
   document.getElementById('nav-spotify').classList.toggle('active', view === 'spotify');
   if (view === 'reports') renderReportsList();
@@ -2807,53 +2763,94 @@ function renderSpotify() {
   </div>
 </div>
 
+<div id="view-pulse" style="display:none;">
+  <div style="padding:2rem 2.5rem;">
+    <div style="font-family:Cormorant Garamond,serif;font-size:32px;color:var(--ink);font-weight:300;font-style:italic;margin-bottom:1.5rem;"><em style="font-style:normal;color:var(--rose);">Tour Pulse</em> — what the internet is saying</div>
+    <div id="pulseContent" style="color:var(--ink4);font-size:13px;">Sync cities in Tour Hub first.</div>
+  </div>
+</div>
 <script>
-const CONAN_SONGS_PULSE = ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','mr davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best','overdrive','fainted love','this song','moths','alley rose'];
-
 function renderPulse() {
-  var syncedCities = state.cities.filter(function(c){return state.reports[c.id]&&state.reports[c.id].videos&&state.reports[c.id].videos.length;});
-  var contentEl = document.getElementById('pulseContent');
-  var meta = document.getElementById('pulseMeta');
-  if (!syncedCities.length) {
-    contentEl.innerHTML = '<div class="empty" style="padding:4rem 2rem;"><div class="empty-title">No data yet</div><div class="empty-body">Sync at least one city in Tour Hub to see the Pulse view.</div></div>';
-    return;
-  }
-  meta.innerHTML = 'Data from <span>' + syncedCities.length + ' cities</span>';
-  var allVideos=[], cityVideoCount={}, cityViews={}, allSounds={}, allHashtags={};
-  var allSentiments={positive:0,setlist:0,fashion:0,hype:0,negative:0,general:0};
-  syncedCities.forEach(function(city){
-    var report=state.reports[city.id], videos=report.videos||[];
-    cityVideoCount[city.name]=videos.length;
-    cityViews[city.name]=videos.reduce(function(s,v){return s+(v.views||0);},0);
-    videos.forEach(function(v){
-      allVideos.push({caption:v.caption,views:v.views,url:v.url,sound:v.sound,cityName:city.name});
-      var sound=(v.sound||'').trim();
-      if(sound){if(!allSounds[sound])allSounds[sound]={count:0,name:sound};allSounds[sound].count++;}
-    });
-    (report.hashtags||[]).forEach(function(h){var tag=h.tag||h;var cnt=h.count||1;allHashtags[tag]=(allHashtags[tag]||0)+cnt;});
-    (report.tweets||[]).forEach(function(t){var cat=t.sentiment||t.category||'general';if(allSentiments[cat]!==undefined)allSentiments[cat]++;else allSentiments.general++;});
+  var el = document.getElementById('pulseContent');
+  var cities = state.cities.filter(function(c) {
+    return state.reports[c.id] && state.reports[c.id].videos && state.reports[c.id].videos.length > 0;
   });
-  var topVideos=allVideos.filter(function(v){return v.views>0;}).sort(function(a,b){return(b.views||0)-(a.views||0);}).slice(0,12);
-  var soundList=Object.values(allSounds).sort(function(a,b){return b.count-a.count;}).slice(0,15);
-  var maxSoundCount=soundList[0]?soundList[0].count:1;
-  var genericTags=new Set(['conangray','fyp','foryou','viral','wishbone','wishboneworldtour','concert','popmusic','foryoupage','trending']);
-  var sortedTags=Object.entries(allHashtags).sort(function(a,b){return b[1]-a[1];}).slice(0,25);
-  var cityRanked=Object.entries(cityVideoCount).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
-  var avgViews=Object.values(cityViews).reduce(function(s,v){return s+v;},0)/(Object.values(cityViews).length||1);
-  var alerts=syncedCities.map(function(city){
-    var views=cityViews[city.name]||0,videos=cityVideoCount[city.name]||0,ratio=views/avgViews;
-    if(ratio>1.5)return{city:city.name,type:'high',stat:'+'+Math.round((ratio-1)*100)+'% views',msg:fmtNum(views)+' total views — significantly above average'};
-    if(ratio<0.5&&videos>5)return{city:city.name,type:'low',stat:Math.round(ratio*100)+'% of avg',msg:'Content not breaking through despite '+videos+' videos'};
-    return null;
-  }).filter(Boolean);
-  var totalSentiment=Object.values(allSentiments).reduce(function(s,v){return s+v;},0)||1;
-  var html='';
-  if(alerts.length){html+='<div class="pulse-section"><div class="pulse-section-header">Market Signals</div><div class="alert-grid">'+alerts.map(function(a){return '<div class="alert-card alert-'+a.type+'"><div class="alert-stat up">'+esc(a.stat)+'</div><div class="alert-city">'+esc(a.city)+'</div><div class="alert-msg">'+esc(a.msg)+'</div></div>';}).join('')+'</div></div>';}
-  html+='<div class="pulse-section"><div class="pulse-section-header">Top Videos — All Markets</div><div class="pulse-video-grid">'+topVideos.map(function(v){return '<div class="pulse-video-card" onclick="window.open(''+(v.url||'#')+'','_blank')"><div class="pulse-video-caption">'+esc(v.caption||'--')+'</div><div class="pulse-video-meta"><span class="pulse-video-views">'+fmtNum(v.views)+' views</span><span class="pulse-video-city">'+esc(v.cityName)+'</span></div></div>';}).join('')+'</div></div>';
-  html+='<div class="pulse-section"><div class="pulse-section-header">Sound Momentum</div><div class="pulse-sounds-list">'+soundList.map(function(s,i){var isOwn=(['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best']).some(function(song){return s.name.toLowerCase().includes(song);});var pct=Math.round(s.count/maxSoundCount*100);return '<div class="pulse-sound-row"><div class="pulse-sound-rank">'+(i+1)+'</div><div class="pulse-sound-name'+(isOwn?' own':'')+'">'+esc(s.name)+'</div><div class="pulse-sound-bar-wrap"><div class="pulse-sound-bar"><div class="pulse-sound-bar-fill" style="width:'+pct+'%;background:'+(isOwn?'var(--rose)':'var(--ink4)')+'"></div></div><div class="pulse-sound-count">'+s.count+' vid'+(s.count!==1?'s':'')+'</div></div></div>';}).join('')+'</div></div>';
-  html+='<div class="pulse-section"><div class="pulse-section-header">Hashtags</div><div class="pulse-hashtag-wrap">'+sortedTags.map(function(e){var tag=e[0],count=e[1];var isBreakout=!genericTags.has(tag.replace('#',''))&&count>1;return '<span class="pulse-hashtag'+(isBreakout?' breakout':'')+'">'+esc(tag)+' <span style="opacity:0.5;font-size:10px;">'+count+'</span></span>';}).join('')+'</div></div>';
-  html+='<div class="pulse-section"><div class="pulse-section-header">City Leaderboard</div><div class="pulse-city-grid">'+cityRanked.map(function(e){var views=cityViews[e[0]]||0;return '<div class="pulse-city-card"><div class="pulse-city-name">'+esc(e[0].split(',')[0])+'</div><div class="pulse-city-count">'+e[1]+'</div><div class="pulse-city-sub">videos - '+fmtNum(views)+' views</div></div>';}).join('')+'</div></div>';
-  contentEl.innerHTML=html;
+  if (!cities.length) { el.innerHTML = '<p style="color:var(--ink4);">Sync at least one city in Tour Hub first.</p>'; return; }
+  
+  var allVideos = [], allSounds = {}, allHashtags = {}, cityStats = [];
+  
+  cities.forEach(function(city) {
+    var vids = state.reports[city.id].videos || [];
+    var totalViews = vids.reduce(function(s,v){return s+(v.views||0);},0);
+    cityStats.push({name:city.name, count:vids.length, views:totalViews});
+    vids.forEach(function(v) {
+      allVideos.push({caption:v.caption||'',views:v.views||0,url:v.url||'#',city:city.name,sound:v.sound||''});
+      if (v.sound) { allSounds[v.sound] = (allSounds[v.sound]||0)+1; }
+    });
+    (state.reports[city.id].hashtags||[]).forEach(function(h){
+      var tag = h.tag||h; var cnt = h.count||1;
+      allHashtags[tag] = (allHashtags[tag]||0)+cnt;
+    });
+  });
+
+  allVideos.sort(function(a,b){return b.views-a.views;});
+  var topVideos = allVideos.slice(0,12);
+  var topSounds = Object.entries(allSounds).sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var topTags = Object.entries(allHashtags).sort(function(a,b){return b[1]-a[1];}).slice(0,20);
+  cityStats.sort(function(a,b){return b.views-a.views;});
+
+  var ownSongs = ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best'];
+  var generic = ['conangray','fyp','foryou','viral','wishbone','wishboneworldtour','concert','foryoupage'];
+
+  var html = '<p style="font-size:11px;color:var(--ink4);margin-bottom:2rem;">'+cities.length+' cities synced</p>';
+
+  // Top videos
+  html += '<div style="margin-bottom:2rem;"><div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(108,99,255,0.15);">Top Videos — All Markets</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;">';
+  topVideos.forEach(function(v) {
+    html += '<div onclick="window.open(''+v.url+'','_blank')" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;">';
+    html += '<div style="font-size:12px;color:var(--ink2);line-height:1.5;margin-bottom:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">'+esc(v.caption)+'</div>';
+    html += '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;"><span style="font-size:13px;color:var(--rose);font-weight:600;">'+fmtNum(v.views)+' views</span><span style="font-size:10px;color:var(--ink4);background:var(--border2);padding:2px 8px;border-radius:10px;">'+esc(v.city)+'</span></div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  // Sounds
+  html += '<div style="margin-bottom:2rem;"><div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(108,99,255,0.15);">Sound Momentum</div>';
+  var maxS = topSounds[0]?topSounds[0][1]:1;
+  topSounds.forEach(function(s,i) {
+    var isOwn = ownSongs.some(function(song){return s[0].toLowerCase().includes(song);});
+    var pct = Math.round(s[1]/maxS*100);
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border2);">';
+    html += '<span style="font-size:16px;color:var(--ink4);min-width:20px;font-family:Cormorant Garamond,serif;">'+(i+1)+'</span>';
+    html += '<span style="flex:1;font-size:13px;color:'+(isOwn?'var(--rose)':'var(--ink2)')+';">'+esc(s[0])+'</span>';
+    html += '<div style="width:100px;height:3px;background:var(--border2);border-radius:2px;"><div style="width:'+pct+'%;height:100%;background:'+(isOwn?'var(--rose)':'var(--ink4)')+'"></div></div>';
+    html += '<span style="font-size:11px;color:var(--ink4);min-width:50px;text-align:right;">'+s[1]+' vid'+(s[1]!==1?'s':'')+'</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Hashtags
+  html += '<div style="margin-bottom:2rem;"><div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(108,99,255,0.15);">Hashtags</div><div style="display:flex;flex-wrap:wrap;gap:8px;">';
+  topTags.forEach(function(t) {
+    var isBreakout = !generic.includes(t[0].replace('#','')) && t[1]>1;
+    html += '<span style="font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid '+(isBreakout?'rgba(108,99,255,0.4)':'var(--border)')+';color:'+(isBreakout?'var(--rose)':'var(--ink3)')+';">'+esc(t[0])+' <span style="opacity:0.5;font-size:10px;">'+t[1]+'</span></span>';
+  });
+  html += '</div></div>';
+
+  // City leaderboard
+  html += '<div style="margin-bottom:2rem;"><div style="font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(108,99,255,0.15);">City Leaderboard</div>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;">';
+  cityStats.forEach(function(c) {
+    html += '<div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;">';
+    html += '<div style="font-size:13px;color:var(--ink2);margin-bottom:4px;">'+esc(c.name.split(',')[0])+'</div>';
+    html += '<div style="font-family:Cormorant Garamond,serif;font-size:28px;color:var(--rose);font-weight:300;">'+c.count+'</div>';
+    html += '<div style="font-size:10px;color:var(--ink4);">videos - '+fmtNum(c.views)+' views</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  el.innerHTML = html;
 }
 </script>
 </body>
