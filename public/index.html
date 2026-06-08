@@ -2811,52 +2811,49 @@ function renderSpotify() {
 const CONAN_SONGS_PULSE = ['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','mr davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best','overdrive','fainted love','this song','moths','alley rose'];
 
 function renderPulse() {
-  const syncedCities = state.cities.filter(c => state.reports[c.id]&&state.reports[c.id].videos&&state.reports[c.id].videos.length);
-  const content = document.getElementById('pulseContent');
-  const meta = document.getElementById('pulseMeta');
+  var syncedCities = state.cities.filter(function(c){return state.reports[c.id]&&state.reports[c.id].videos&&state.reports[c.id].videos.length;});
+  var contentEl = document.getElementById('pulseContent');
+  var meta = document.getElementById('pulseMeta');
   if (!syncedCities.length) {
-    content.innerHTML = '<div class="empty" style="padding:4rem 2rem;"><div class="empty-icon">✦</div><div class="empty-title">No data yet</div><div class="empty-body">Sync at least one city in Tour Hub to see the Pulse view.</div></div>';
+    contentEl.innerHTML = '<div class="empty" style="padding:4rem 2rem;"><div class="empty-title">No data yet</div><div class="empty-body">Sync at least one city in Tour Hub to see the Pulse view.</div></div>';
     return;
   }
   meta.innerHTML = 'Data from <span>' + syncedCities.length + ' cities</span>';
-  const allVideos = [], cityVideoCount = {}, cityViews = {}, allSounds = {}, allHashtags = {};
-  const allSentiments = { positive:0, setlist:0, fashion:0, hype:0, negative:0, general:0 };
-  syncedCities.forEach(function(city) {
-    const report = state.reports[city.id];
-    const videos = report.videos || [];
-    cityVideoCount[city.name] = videos.length;
-    cityViews[city.name] = videos.reduce(function(s,v){return s+(v.views||0);},0);
-    videos.forEach(function(v) {
-      allVideos.push(Object.assign({},v,{cityName:city.name}));
-      const sound = (v.sound||'').trim();
-      if (sound) { if (!allSounds[sound]) allSounds[sound]={count:0,name:sound}; allSounds[sound].count++; }
+  var allVideos=[], cityVideoCount={}, cityViews={}, allSounds={}, allHashtags={};
+  var allSentiments={positive:0,setlist:0,fashion:0,hype:0,negative:0,general:0};
+  syncedCities.forEach(function(city){
+    var report=state.reports[city.id], videos=report.videos||[];
+    cityVideoCount[city.name]=videos.length;
+    cityViews[city.name]=videos.reduce(function(s,v){return s+(v.views||0);},0);
+    videos.forEach(function(v){
+      allVideos.push({caption:v.caption,views:v.views,url:v.url,sound:v.sound,cityName:city.name});
+      var sound=(v.sound||'').trim();
+      if(sound){if(!allSounds[sound])allSounds[sound]={count:0,name:sound};allSounds[sound].count++;}
     });
-    (report.hashtags||[]).forEach(function(h){ const tag=h.tag||h; const cnt=h.count||1; allHashtags[tag]=(allHashtags[tag]||0)+cnt; });
-    (report.tweets||[]).forEach(function(t){ const cat=t.sentiment||t.category||'general'; if(allSentiments[cat]!==undefined)allSentiments[cat]++;else allSentiments.general++; });
+    (report.hashtags||[]).forEach(function(h){var tag=h.tag||h;var cnt=h.count||1;allHashtags[tag]=(allHashtags[tag]||0)+cnt;});
+    (report.tweets||[]).forEach(function(t){var cat=t.sentiment||t.category||'general';if(allSentiments[cat]!==undefined)allSentiments[cat]++;else allSentiments.general++;});
   });
-  const topVideos = allVideos.filter(function(v){return v.views>0;}).sort(function(a,b){return(b.views||0)-(a.views||0);}).slice(0,12);
-  const soundList = Object.values(allSounds).sort(function(a,b){return b.count-a.count;}).slice(0,15);
-  const maxSoundCount = soundList[0]?soundList[0].count:1;
-  const genericTags = new Set(['conangray','fyp','foryou','viral','wishbone','wishboneworldtour','concert','popmusic','foryoupage','trending']);
-  const sortedTags = Object.entries(allHashtags).sort(function(a,b){return b[1]-a[1];}).slice(0,25);
-  const cityRanked = Object.entries(cityVideoCount).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
-  const avgViews = Object.values(cityViews).reduce(function(s,v){return s+v;},0)/(Object.values(cityViews).length||1);
-  const alerts = syncedCities.map(function(city){
-    const views=cityViews[city.name]||0, videos=cityVideoCount[city.name]||0, ratio=views/avgViews;
-    if(ratio>1.5) return {city:city.name,type:'high',stat:'+'+Math.round((ratio-1)*100)+'% views',msg:fmtNum(views)+' total views — significantly above average'};
-    if(ratio<0.5&&videos>5) return {city:city.name,type:'low',stat:Math.round(ratio*100)+'% of avg',msg:'Content not breaking through despite '+videos+' videos'};
+  var topVideos=allVideos.filter(function(v){return v.views>0;}).sort(function(a,b){return(b.views||0)-(a.views||0);}).slice(0,12);
+  var soundList=Object.values(allSounds).sort(function(a,b){return b.count-a.count;}).slice(0,15);
+  var maxSoundCount=soundList[0]?soundList[0].count:1;
+  var genericTags=new Set(['conangray','fyp','foryou','viral','wishbone','wishboneworldtour','concert','popmusic','foryoupage','trending']);
+  var sortedTags=Object.entries(allHashtags).sort(function(a,b){return b[1]-a[1];}).slice(0,25);
+  var cityRanked=Object.entries(cityVideoCount).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  var avgViews=Object.values(cityViews).reduce(function(s,v){return s+v;},0)/(Object.values(cityViews).length||1);
+  var alerts=syncedCities.map(function(city){
+    var views=cityViews[city.name]||0,videos=cityVideoCount[city.name]||0,ratio=views/avgViews;
+    if(ratio>1.5)return{city:city.name,type:'high',stat:'+'+Math.round((ratio-1)*100)+'% views',msg:fmtNum(views)+' total views — significantly above average'};
+    if(ratio<0.5&&videos>5)return{city:city.name,type:'low',stat:Math.round(ratio*100)+'% of avg',msg:'Content not breaking through despite '+videos+' videos'};
     return null;
   }).filter(Boolean);
-  const totalSentiment = Object.values(allSentiments).reduce(function(s,v){return s+v;},0)||1;
-  let html = '';
-  if(alerts.length){ html+='<div class="pulse-section"><div class="pulse-section-header">📍 Market Signals</div><div class="alert-grid">'+alerts.map(function(a){return '<div class="alert-card alert-'+a.type+'"><div class="alert-stat up">'+esc(a.stat)+'</div><div class="alert-city">'+esc(a.city)+'</div><div class="alert-msg">'+esc(a.msg)+'</div></div>';}).join('')+'</div></div>'; }
-  html+='<div class="pulse-section"><div class="pulse-section-header">🔥 Top Videos Across All Markets</div><div class="pulse-video-grid">'+topVideos.map(function(v){return '<div class="pulse-video-card" onclick="window.open(''+(v.url||'#')+'','_blank')"><div class="pulse-video-caption">'+esc(v.caption||'—')+'</div><div class="pulse-video-meta"><span class="pulse-video-views">👁 '+fmtNum(v.views)+'</span><span class="pulse-video-city">'+esc(v.cityName)+'</span></div></div>';}).join('')+'</div></div>';
-  html+='<div class="pulse-section"><div class="pulse-section-header">🎵 Sound Momentum</div><div class="pulse-sounds-list">'+soundList.map(function(s,i){const isOwn=CONAN_SONGS_PULSE.some(function(song){return s.name.toLowerCase().includes(song);});const pct=Math.round(s.count/maxSoundCount*100);return '<div class="pulse-sound-row"><div class="pulse-sound-rank">'+(i+1)+'</div><div class="pulse-sound-name'+(isOwn?' own':'')+'">'+esc(s.name)+(isOwn?' <span style="font-size:9px;opacity:0.6;">CONAN</span>':'')+'</div><div class="pulse-sound-bar-wrap"><div class="pulse-sound-bar"><div class="pulse-sound-bar-fill" style="width:'+pct+'%;background:'+(isOwn?'var(--rose)':'var(--ink4)')+'"></div></div><div class="pulse-sound-count">'+s.count+' vid'+(s.count!==1?'s':'')+'</div></div></div>';}).join('')+'</div></div>';
-  html+='<div class="pulse-section"><div class="pulse-section-header">#️⃣ Hashtags</div><div class="pulse-hashtag-wrap">'+sortedTags.map(function(e){const tag=e[0],count=e[1];const isBreakout=!genericTags.has(tag.replace('#',''))&&count>1;return '<span class="pulse-hashtag'+(isBreakout?' breakout':'')+'">'+esc(tag)+' <span style="opacity:0.5;font-size:10px;">'+count+'</span></span>';}).join('')+'</div></div>';
-  const sentimentColors={positive:'#81c784',setlist:'var(--rose)',fashion:'var(--gold)',hype:'#ffb74d',negative:'#e57373',general:'var(--ink4)'};
-  if(totalSentiment>1){ html+='<div class="pulse-section"><div class="pulse-section-header">💬 Fan Sentiment</div><div class="sentiment-bar-wrap">'+Object.entries(allSentiments).filter(function(e){return e[1]>0;}).map(function(e){const pct=Math.round(e[1]/totalSentiment*100);return '<div class="sentiment-segment" style="width:'+pct+'%;background:'+(sentimentColors[e[0]]||'var(--ink4)')+';" title="'+e[0]+': '+pct+'%">'+(pct>8?pct+'%':'')+'</div>';}).join('')+'</div></div>'; }
-  html+='<div class="pulse-section"><div class="pulse-section-header">📊 City Leaderboard</div><div class="pulse-city-grid">'+cityRanked.map(function(e){const views=cityViews[e[0]]||0;return '<div class="pulse-city-card"><div class="pulse-city-name">'+esc(e[0].split(',')[0])+'</div><div class="pulse-city-count">'+e[1]+'</div><div class="pulse-city-sub">videos · '+fmtNum(views)+' views</div></div>';}).join('')+'</div></div>';
-  content.innerHTML = html;
+  var totalSentiment=Object.values(allSentiments).reduce(function(s,v){return s+v;},0)||1;
+  var html='';
+  if(alerts.length){html+='<div class="pulse-section"><div class="pulse-section-header">Market Signals</div><div class="alert-grid">'+alerts.map(function(a){return '<div class="alert-card alert-'+a.type+'"><div class="alert-stat up">'+esc(a.stat)+'</div><div class="alert-city">'+esc(a.city)+'</div><div class="alert-msg">'+esc(a.msg)+'</div></div>';}).join('')+'</div></div>';}
+  html+='<div class="pulse-section"><div class="pulse-section-header">Top Videos — All Markets</div><div class="pulse-video-grid">'+topVideos.map(function(v){return '<div class="pulse-video-card" onclick="window.open(''+(v.url||'#')+'','_blank')"><div class="pulse-video-caption">'+esc(v.caption||'--')+'</div><div class="pulse-video-meta"><span class="pulse-video-views">'+fmtNum(v.views)+' views</span><span class="pulse-video-city">'+esc(v.cityName)+'</span></div></div>';}).join('')+'</div></div>';
+  html+='<div class="pulse-section"><div class="pulse-section-header">Sound Momentum</div><div class="pulse-sounds-list">'+soundList.map(function(s,i){var isOwn=(['heather','maniac','astronomy','family line','people watching','memories','the story','yours','sunglow','telepath','mr. davis','house of plagues','wishbone','found heaven','winner','the exit','never ending song','crisis','greek god','the best']).some(function(song){return s.name.toLowerCase().includes(song);});var pct=Math.round(s.count/maxSoundCount*100);return '<div class="pulse-sound-row"><div class="pulse-sound-rank">'+(i+1)+'</div><div class="pulse-sound-name'+(isOwn?' own':'')+'">'+esc(s.name)+'</div><div class="pulse-sound-bar-wrap"><div class="pulse-sound-bar"><div class="pulse-sound-bar-fill" style="width:'+pct+'%;background:'+(isOwn?'var(--rose)':'var(--ink4)')+'"></div></div><div class="pulse-sound-count">'+s.count+' vid'+(s.count!==1?'s':'')+'</div></div></div>';}).join('')+'</div></div>';
+  html+='<div class="pulse-section"><div class="pulse-section-header">Hashtags</div><div class="pulse-hashtag-wrap">'+sortedTags.map(function(e){var tag=e[0],count=e[1];var isBreakout=!genericTags.has(tag.replace('#',''))&&count>1;return '<span class="pulse-hashtag'+(isBreakout?' breakout':'')+'">'+esc(tag)+' <span style="opacity:0.5;font-size:10px;">'+count+'</span></span>';}).join('')+'</div></div>';
+  html+='<div class="pulse-section"><div class="pulse-section-header">City Leaderboard</div><div class="pulse-city-grid">'+cityRanked.map(function(e){var views=cityViews[e[0]]||0;return '<div class="pulse-city-card"><div class="pulse-city-name">'+esc(e[0].split(',')[0])+'</div><div class="pulse-city-count">'+e[1]+'</div><div class="pulse-city-sub">videos - '+fmtNum(views)+' views</div></div>';}).join('')+'</div></div>';
+  contentEl.innerHTML=html;
 }
 </script>
 </body>
