@@ -745,18 +745,122 @@ body {
 .upload-drop-zone p { font-size: 13px; color: var(--ink4); line-height: 1.7; }
 .upload-drop-zone span { color: var(--rose); cursor: pointer; text-decoration: underline; }
 
-#password-gate { position:fixed; inset:0; z-index:9999; background:#070810; background-image:radial-gradient(ellipse at 20% 50%,#1a1040 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#0d0a30 0%,transparent 50%); display:flex; align-items:center; justify-content:center; }
-.gate-box { text-align:center; width:100%; max-width:340px; padding:2rem; }
-.gate-wordmark { font-family:"Cormorant Garamond",serif; font-size:22px; font-weight:300; font-style:italic; color:#e8eaf6; letter-spacing:0.04em; margin-bottom:2rem; }
-.gate-wordmark em { font-style:normal; color:#6c63ff; font-weight:400; }
-.gate-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(232,234,246,0.15); border-radius:8px; padding:11px 16px; font-size:14px; color:#e8eaf6; font-family:"Montserrat",sans-serif; outline:none; text-align:center; letter-spacing:0.08em; margin-bottom:12px; }
-.gate-input:focus { border-color:#6c63ff; }
-.gate-btn { width:100%; background:linear-gradient(135deg,#6c63ff,#4f46e5); color:white; border:none; border-radius:8px; padding:11px; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; font-family:"Montserrat",sans-serif; }
-.gate-error { font-size:11px; color:#e57373; margin-top:10px; min-height:16px; }
+/* ── Password gate ───────────────────────────────── */
+#password-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #070810;
+  background-image: radial-gradient(ellipse at 20% 50%, #1a1040 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, #0d0a30 0%, transparent 50%);
+  display: flex; align-items: center; justify-content: center;
+}
+.gate-box {
+  text-align: center; width: 100%; max-width: 340px; padding: 2rem;
+}
+.gate-wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; font-style: italic;
+  color: #e8eaf6; letter-spacing: 0.04em; margin-bottom: 2rem;
+}
+.gate-wordmark em { font-style: normal; color: #6c63ff; font-weight: 400; }
+.gate-input {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(232,234,246,0.15); border-radius: 8px;
+  padding: 11px 16px; font-size: 14px; color: #e8eaf6;
+  font-family: 'Montserrat', sans-serif; outline: none;
+  text-align: center; letter-spacing: 0.08em; margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.gate-input:focus { border-color: #6c63ff; }
+.gate-input::placeholder { color: #3d4268; letter-spacing: 0.04em; }
+.gate-btn {
+  width: 100%; background: linear-gradient(135deg, #6c63ff, #4f46e5);
+  color: white; border: none; border-radius: 8px; padding: 11px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; transition: opacity 0.15s;
+}
+.gate-btn:hover { opacity: 0.9; }
+.gate-error {
+  font-size: 11px; color: #e57373; margin-top: 10px;
+  letter-spacing: 0.04em; min-height: 16px;
+}
+
+/* ── Spotify tab ─────────────────────────────────── */
+.spotify-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
+.spotify-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
+.spotify-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: italic; }
+.spotify-title em { font-style: normal; color: #1db954; }
+.spotify-fetched { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
+.spotify-fetched span { color: var(--sage); }
+.spotify-refresh-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 14px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3);
+  cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.15s;
+}
+.spotify-refresh-btn:hover { border-color: #1db954; color: #1db954; }
+.spotify-artist-card {
+  display: flex; align-items: center; gap: 1.5rem;
+  background: rgba(29,185,84,0.06); border: 1px solid rgba(29,185,84,0.2);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+}
+.spotify-artist-img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: var(--border); }
+.spotify-artist-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--ink); font-weight: 300; font-style: italic; }
+.spotify-artist-meta { font-size: 12px; color: var(--ink4); margin-top: 4px; letter-spacing: 0.04em; }
+.spotify-artist-meta span { color: #1db954; font-weight: 600; }
+.spotify-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.spotify-section-title {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #1db954; font-weight: 600; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(29,185,84,0.15);
+}
+.track-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0; border-bottom: 1px solid var(--border2);
+}
+.track-item:last-child { border-bottom: none; }
+.track-rank { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink4); min-width: 24px; font-weight: 300; }
+.track-img { width: 36px; height: 36px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--border); }
+.track-info { flex: 1; min-width: 0; }
+.track-name { font-size: 13px; color: var(--ink2); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-album { font-size: 11px; color: var(--ink4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-pop-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.track-pop-bar { width: 48px; height: 3px; background: var(--border2); border-radius: 2px; }
+.track-pop-fill { height: 100%; border-radius: 2px; background: #1db954; }
+.track-pop-num { font-size: 10px; color: var(--ink4); min-width: 24px; text-align: right; }
+.track-link { font-size: 10px; color: #1db954; text-decoration: none; flex-shrink: 0; opacity: 0.7; }
+.track-link:hover { opacity: 1; }
+.pop-meter { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.pop-bar-full { flex: 1; height: 4px; background: var(--border2); border-radius: 2px; }
+.pop-bar-full-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #1db954, #1ed760); }
+.spotify-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+.spotify-tiktok-section {
+  background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.2);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1.5rem;
+}
+.spotify-tiktok-title { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 12px; }
+.correlation-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid var(--border2); gap: 12px;
+}
+.correlation-row:last-child { border-bottom: none; }
+.correlation-song { font-size: 13px; color: var(--ink2); flex: 1; }
+.correlation-tiktok { font-size: 11px; color: var(--rose); }
+.correlation-spotify { font-size: 11px; color: #1db954; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
-<body><div id="password-gate"><div class="gate-box"><div class="gate-wordmark"><em>Live From The Internet</em> — Conan Gray</div><input class="gate-input" type="password" id="gateInput" placeholder="Enter password" onkeydown="if(event.key===chr(39)Enter chr(39))checkPassword()" autofocus /><button class="gate-btn" onclick="checkPassword()">Enter</button><div class="gate-error" id="gateError"></div></div></div>
+<body>
+
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="gate-wordmark"><em>Live From The Internet</em> — Conan Gray</div>
+    <input class="gate-input" type="password" id="gateInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPassword()" autofocus />
+    <button class="gate-btn" onclick="checkPassword()">Enter</button>
+    <div class="gate-error" id="gateError"></div>
+  </div>
+</div>
+
 
 <div class="header">
   <div class="header-left">
@@ -770,6 +874,7 @@ body {
   <div class="top-nav-btn active" id="nav-hub" onclick="switchView('hub')">Tour Hub</div>
   <div class="top-nav-btn" id="nav-reports" onclick="switchView('reports')">Reports</div>
   <div class="top-nav-btn" id="nav-tickets" onclick="switchView('tickets')">Tickets</div>
+  <div class="top-nav-btn" id="nav-spotify" onclick="switchView('spotify')">Spotify</div>
 </div>
 
 
@@ -869,11 +974,14 @@ function switchView(view) {
   document.getElementById('view-hub').style.display = view === 'hub' ? 'block' : 'none';
   document.getElementById('view-reports').style.display = view === 'reports' ? 'block' : 'none';
   document.getElementById('view-tickets').style.display = view === 'tickets' ? 'block' : 'none';
+  document.getElementById('view-spotify').style.display = view === 'spotify' ? 'block' : 'none';
   document.getElementById('nav-hub').classList.toggle('active', view === 'hub');
   document.getElementById('nav-reports').classList.toggle('active', view === 'reports');
   document.getElementById('nav-tickets').classList.toggle('active', view === 'tickets');
+  document.getElementById('nav-spotify').classList.toggle('active', view === 'spotify');
   if (view === 'reports') renderReportsList();
   if (view === 'tickets') renderTicketsView();
+  if (view === 'spotify') loadSpotify();
 }
 
 function generateReport(cityId) {
@@ -1881,9 +1989,11 @@ async function fetchTikToks(city, _unused, showDate) {
       const items =
         data?.data?.videos ||
         data?.data?.list ||
+        data?.data?.items ||
         data?.data ||
         data?.videos ||
         data?.list ||
+        data?.items ||
         data?.aweme_list ||
         [];
 
@@ -2356,7 +2466,9 @@ function processTktData(raw) {
       else if (typeof pv === 'number' && pv > 10) prevSold = Math.round(pv);
     }
 
-    const played = showDate < today;
+    // Fix: ignore year in Excel — compare using current year so ANZ/EU dates aren't wrongly marked played
+    const showThisYear = new Date(today.getFullYear(), showDate.getMonth(), showDate.getDate());
+    const played = showThisYear < today;
     const pct = cap ? Math.round(sold / cap * 100) : 0;
     const wow = prevSold ? sold - prevSold : null;
 
@@ -2460,5 +2572,173 @@ function renderTktTable() {
 }
 </script>
 
-<script>(function(){function h(s){let n=0;for(let i=0;i<s.length;i++){n=((n<<5)-n)+s.charCodeAt(i);n=n&n;}return Math.abs(n).toString(16).padStart(8,"0");}const P=h("claudelovesconan");function checkPassword(){const v=document.getElementById("gateInput").value;if(h(v)===P){sessionStorage.setItem("tpauth",P);document.getElementById("password-gate").style.display="none";}else{document.getElementById("gateError").textContent="Incorrect password";document.getElementById("gateInput").value="";}}window.checkPassword=checkPassword;if(sessionStorage.getItem("tpauth")===P){document.addEventListener("DOMContentLoaded",function(){var g=document.getElementById("password-gate");if(g)g.style.display="none";});}})();</script></body>
+<script>
+(function() {
+  const HASH = '7a4f2c8e1b9d3f6a5c2e8b4d7f1a3c6e9b2d5f8a1c4e7b0d3f6a9c2e5b8d1f4';
+
+  function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash).toString(16).padStart(8, '0');
+  }
+
+  const PASS_HASH = simpleHash('claudelovesconan');
+
+  function checkPassword() {
+    const val = document.getElementById('gateInput').value;
+    if (simpleHash(val) === PASS_HASH) {
+      sessionStorage.setItem('tpauth', PASS_HASH);
+      document.getElementById('password-gate').style.display = 'none';
+    } else {
+      document.getElementById('gateError').textContent = 'Incorrect password';
+      document.getElementById('gateInput').value = '';
+      document.getElementById('gateInput').focus();
+    }
+  }
+
+  window.checkPassword = checkPassword;
+
+  // Check if already authenticated this session
+  if (sessionStorage.getItem('tpauth') === PASS_HASH) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const gate = document.getElementById('password-gate');
+      if (gate) gate.style.display = 'none';
+    });
+  }
+})();
+</script>
+
+<div id="view-spotify" style="display:none;">
+  <div class="spotify-layout">
+    <div class="spotify-topbar">
+      <div>
+        <div class="spotify-title"><em>Spotify</em> — Conan Gray</div>
+        <div class="spotify-fetched" id="spotifyFetched">Click refresh to load data</div>
+      </div>
+      <button class="spotify-refresh-btn" onclick="loadSpotify()">↻ Refresh</button>
+    </div>
+
+    <div id="spotifyContent">
+      <div class="empty" style="padding:4rem 2rem;">
+        <div class="empty-icon">🎵</div>
+        <div class="empty-title">No data loaded</div>
+        <div class="empty-body">Click Refresh to pull Conan's current Spotify data.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Spotify tab ──────────────────────────────────────────────────────────────
+let spotifyData = null;
+
+async function loadSpotify() {
+  const btn = document.querySelector('.spotify-refresh-btn');
+  btn.textContent = '⟳ Loading...';
+  btn.disabled = true;
+
+  try {
+    const resp = await fetch('/api/spotify');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    spotifyData = await resp.json();
+    renderSpotify();
+    const fetched = new Date(spotifyData.fetchedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    document.getElementById('spotifyFetched').innerHTML = `Last refreshed <span>${fetched}</span>`;
+  } catch (err) {
+    document.getElementById('spotifyContent').innerHTML = `<div class="empty"><div class="empty-body" style="color:#e57373;">Error loading Spotify data: ${err.message}</div></div>`;
+  } finally {
+    btn.textContent = '↻ Refresh';
+    btn.disabled = false;
+  }
+}
+
+function renderSpotify() {
+  if (!spotifyData) return;
+  const { artist, topTracks, albums } = spotifyData;
+
+  // Artist card
+  const artistHTML = `
+    <div class="spotify-artist-card">
+      ${artist.image ? `<img class="spotify-artist-img" src="${artist.image}" alt="${esc(artist.name)}" />` : ''}
+      <div>
+        <div class="spotify-artist-name">${esc(artist.name)}</div>
+        <div class="spotify-artist-meta">
+          <span>${fmtNum(artist.followers)}</span> followers &nbsp;·&nbsp;
+          Popularity <span>${artist.popularity}/100</span> &nbsp;·&nbsp;
+          ${artist.genres?.slice(0,2).map(g => esc(g)).join(', ')}
+        </div>
+        <div class="pop-meter" style="margin-top:8px;max-width:200px;">
+          <div class="pop-bar-full"><div class="pop-bar-full-fill" style="width:${artist.popularity}%"></div></div>
+          <span style="font-size:10px;color:var(--ink4);">${artist.popularity}%</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Summary stats
+  const statsHTML = `
+    <div class="spotify-stat-grid">
+      <div class="stat-card"><div class="stat-label">Followers</div><div class="stat-value">${fmtNum(artist.followers)}</div><div class="stat-sub">Spotify followers</div></div>
+      <div class="stat-card"><div class="stat-label">Popularity</div><div class="stat-value">${artist.popularity}</div><div class="stat-sub">out of 100</div></div>
+      <div class="stat-card"><div class="stat-label">Top track pop.</div><div class="stat-value">${topTracks?.[0]?.popularity || '—'}</div><div class="stat-sub">${esc(topTracks?.[0]?.name || '')}</div></div>
+    </div>
+  `;
+
+  // Top tracks
+  const tracksHTML = `
+    <div>
+      <div class="spotify-section-title">Top Tracks — US</div>
+      ${(topTracks || []).map((t, i) => `
+        <div class="track-item">
+          <div class="track-rank">${i+1}</div>
+          ${t.albumImage ? `<img class="track-img" src="${t.albumImage}" alt="" />` : '<div class="track-img"></div>'}
+          <div class="track-info">
+            <div class="track-name">${esc(t.name)}</div>
+            <div class="track-album">${esc(t.album)}</div>
+          </div>
+          <div class="track-pop-wrap">
+            <div class="track-pop-bar"><div class="track-pop-fill" style="width:${t.popularity}%"></div></div>
+            <div class="track-pop-num">${t.popularity}</div>
+          </div>
+          ${t.spotifyUrl ? `<a href="${t.spotifyUrl}" target="_blank" rel="noopener" class="track-link">▶</a>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // TikTok correlation — cross-reference with synced data
+  const syncedSongs = {};
+  Object.values(state.reports || {}).forEach(report => {
+    (report.videos || []).forEach(v => {
+      const sound = (v.sound || '').toLowerCase();
+      (topTracks || []).forEach(t => {
+        if (sound.includes(t.name.toLowerCase())) {
+          syncedSongs[t.name] = (syncedSongs[t.name] || 0) + 1;
+        }
+      });
+    });
+  });
+
+  const correlationHTML = Object.keys(syncedSongs).length ? `
+    <div class="spotify-tiktok-section">
+      <div class="spotify-tiktok-title">🎵 TikTok × Spotify — Songs appearing in both</div>
+      ${Object.entries(syncedSongs).sort((a,b) => b[1]-a[1]).map(([song, count]) => {
+        const track = topTracks.find(t => t.name === song);
+        return `<div class="correlation-row">
+          <div class="correlation-song">${esc(song)}</div>
+          <div class="correlation-tiktok">🎵 ${count} TikTok video${count !== 1 ? 's' : ''}</div>
+          ${track ? `<div class="correlation-spotify">Spotify pop. ${track.popularity}</div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>
+  ` : '';
+
+  document.getElementById('spotifyContent').innerHTML = artistHTML + statsHTML + `<div class="spotify-grid">${tracksHTML}</div>` + correlationHTML;
+}
+</script>
+</body>
 </html>

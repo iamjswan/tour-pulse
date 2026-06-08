@@ -11,13 +11,12 @@ export default async function handler(req, res) {
   const RAPID_KEY = process.env.RAPIDAPI_KEY;
   if (!RAPID_KEY) return res.status(500).json({ error: 'API key not configured' });
 
-  const pt = publish_time || '30';
-  const url = `https://tiktok-scraper7.p.rapidapi.com/feed/search?keywords=${encodeURIComponent(keywords)}&count=30&cursor=0&region=US&publish_time=${pt}`;
+  const url = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/search_video/?keyword=${encodeURIComponent(keywords)}&cursor=0&count=20&region=US`;
 
   try {
     const resp = await fetch(url, {
       headers: {
-        'x-rapidapi-host': 'tiktok-scraper7.p.rapidapi.com',
+        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com',
         'x-rapidapi-key': RAPID_KEY
       }
     });
