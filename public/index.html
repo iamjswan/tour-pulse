@@ -911,7 +911,7 @@ body {
       <button class="btn-run" style="background:var(--ink2);margin-bottom:6px;font-size:12px;padding:8px;" onclick="importTourDates()">Import Wishbone World Tour (42 dates)</button>
       <button style="width:100%;background:transparent;border:1px solid var(--border);border-radius:6px;padding:6px;font-size:11px;color:var(--ink4);cursor:pointer;margin-bottom:10px;font-family:'Montserrat',sans-serif;" onclick="clearCities()">Clear all cities</button>
       <div class="city-add">
-        <input class="city-input" type="text" id="cityInput" placeholder="Add custom city..." onkeydown="if(event.key==='Enter')addCity()" />
+        <input class="city-input" type="text" id="cityInput" placeholder="Custom search..." onkeydown="if(event.key==='Enter')addCity()" />
         <button class="btn-add" onclick="addCity()">+</button>
       </div>
       <div class="city-list" id="cityList"></div>
@@ -938,7 +938,7 @@ body {
 
   <div class="main" id="mainContent">
     <div class="empty" id="emptyState">
-      <div class="empty-icon">🎸</div>
+      
       <div class="empty-title">No data yet</div>
       <div class="empty-body">Add tour stop cities in the sidebar, drop in your API keys, and hit Sync to start pulling TikTok UGC for each show.</div>
     </div>
@@ -1158,9 +1158,9 @@ function renderReportDetail(gen) {
       <div class="report-video-left">
         <div class="report-video-caption">${esc(v.caption || 'No caption')}</div>
         <div class="report-video-meta">
-          <span class="report-video-stat">👁 ${fmtNum(v.views||0)}</span>
-          <span class="report-video-stat">❤️ ${fmtNum(v.likes||0)}</span>
-          ${v.sound ? `<span class="report-video-sound">♪ ${esc(v.sound)}</span>` : ''}
+          <span class="report-video-stat"> ${fmtNum(v.views||0)}</span>
+          <span class="report-video-stat">️ ${fmtNum(v.likes||0)}</span>
+          ${v.sound ? `<span class="report-video-sound"> ${esc(v.sound)}</span>` : ''}
           <span style="font-size:10px;color:${cat.color};">${cat.emoji} ${cat.label}</span>
         </div>
       </div>
@@ -1255,7 +1255,7 @@ function renderReportDetail(gen) {
       <div class="report-section-title">Twitter / X — ${gen.twitter.totalTweets} tweets</div>
       <div class="trend-pills" style="margin-bottom:12px;">
         ${Object.entries(gen.twitter.sentimentCounts).sort((a,b)=>b[1]-a[1]).map(([key,count]) => {
-          const SENT = {love:{label:'Positive',color:'#e8437a',emoji:'🩷'},setlist:{label:'Setlist',color:'#c97ba8',emoji:''},fashion:{label:'Fashion',color:'#ff6ba8',emoji:'👗'},hype:{label:'Hype',color:'#f5a623',emoji:''},negative:{label:'Negative',color:'#e05454',emoji:'👎'},general:{label:'General',color:'#5a3d48',emoji:''}};
+          const SENT = {love:{label:'Positive',color:'#e8437a',emoji:''},setlist:{label:'Setlist',color:'#c97ba8',emoji:''},fashion:{label:'Fashion',color:'#ff6ba8',emoji:''},hype:{label:'Hype',color:'#f5a623',emoji:''},negative:{label:'Negative',color:'#e05454',emoji:''},general:{label:'General',color:'#5a3d48',emoji:''}};
           const m = SENT[key] || SENT.general;
           const pct = Math.round(count/gen.twitter.totalTweets*100);
           return `<span class="pill" style="background:${m.color}15;border-color:${m.color}33;color:${m.color}">${m.emoji} ${m.label} <span class="pill-count">${pct}%</span></span>`;
@@ -1268,7 +1268,7 @@ function renderReportDetail(gen) {
             <div class="report-video-caption">${esc(t.text)}</div>
             <div class="report-video-meta">
               ${t.author ? `<span class="report-video-stat">@${esc(t.author)}</span>` : ''}
-              <span class="report-video-stat">❤️ ${fmtNum(t.likes||0)}</span>
+              <span class="report-video-stat">️ ${fmtNum(t.likes||0)}</span>
             </div>
           </div>
           ${t.url ? `<a href="${t.url}" target="_blank" rel="noopener" class="vcard-link" style="font-size:10px;padding:5px 10px;">View →</a>` : ''}
@@ -1463,7 +1463,7 @@ function renderMain() {
         ${city.venue ? `<div class="city-date">${city.date ? city.date + ' · ' : ''}${esc(city.venue)}</div>` : ''}
       </div>
       <div class="empty">
-        <div class="empty-icon">📱</div>
+        
         <div class="empty-title">No data yet</div>
         <div class="empty-body">Hit "Sync All Cities" to pull TikTok content for ${esc(city.name)}.</div>
       </div>`;
@@ -1570,16 +1570,16 @@ function setCategoryFilter(cat) {
 function renderTwitterPanel(cityId) {
   const tw = state.twitterReports[cityId];
 
-  if (!tw) return `<div class="empty"><div class="empty-icon">🐦</div><div class="empty-title">No Twitter data yet</div><div class="empty-body">Hit ↻ to sync this city — Twitter pulls alongside TikTok.</div></div>`;
+  if (!tw) return `<div class="empty"><div class="empty-title">No Twitter data yet</div><div class="empty-body">Hit ↻ to sync this city — Twitter pulls alongside TikTok.</div></div>`;
   if (tw.error && !tw.totalTweets) return `<div class="empty"><div class="empty-body">Twitter sync failed: ${esc(tw.error)}. Try resyncing.</div></div>`;
   if (!tw.totalTweets) return `<div class="empty"><div class="empty-body">No tweets found for this window.</div></div>`;
 
   const SENT_LABELS = {
-    love: { label: 'Positive', color: '#e8437a', emoji: '🩷' },
+    love: { label: 'Positive', color: '#e8437a', emoji: '' },
     setlist: { label: 'Setlist talk', color: '#c97ba8', emoji: '' },
-    fashion: { label: 'Fashion', color: '#ff6ba8', emoji: '👗' },
+    fashion: { label: 'Fashion', color: '#ff6ba8', emoji: '' },
     hype: { label: 'Hype & tickets', color: '#f5a623', emoji: '' },
-    negative: { label: 'Negative', color: '#e05454', emoji: '👎' },
+    negative: { label: 'Negative', color: '#e05454', emoji: '' },
     general: { label: 'General', color: '#5a3d48', emoji: '' }
   };
 
@@ -1607,8 +1607,8 @@ function renderTwitterPanel(cityId) {
         <div class="vcard-caption">${esc(t.text)}</div>
         <div class="vcard-meta">
           ${t.author ? `<span class="vcard-author" style="margin-left:0;">@${esc(t.author)}</span>` : ''}
-          <span class="vcard-stat">❤️ ${fmtNum(t.likes||0)}</span>
-          <span class="vcard-stat">🔁 ${fmtNum(t.retweets||0)}</span>
+          <span class="vcard-stat">️ ${fmtNum(t.likes||0)}</span>
+          <span class="vcard-stat"> ${fmtNum(t.retweets||0)}</span>
           ${t.replies ? `<span class="vcard-stat"> ${fmtNum(t.replies)}</span>` : ''}
         </div>
       </div>
@@ -1667,10 +1667,10 @@ function renderFeedPanel(report) {
           ${v.postDate ? `<span class="vcard-date">${esc(v.postDate)}</span>` : ''}
         </div>
         <div class="vcard-caption">${esc(v.caption || 'No caption')}</div>
-        <div class="vcard-sound">${v.sound ? `♪ ${esc(v.sound)}${v.soundArtist ? ' — ' + esc(v.soundArtist) : ''}` : ''}</div>
+        <div class="vcard-sound">${v.sound ? ` ${esc(v.sound)}${v.soundArtist ? ' — ' + esc(v.soundArtist) : ''}` : ''}</div>
         <div class="vcard-meta">
-          <span class="vcard-stat">👁 ${fmtNum(v.views||0)}</span>
-          <span class="vcard-stat">❤️ ${fmtNum(v.likes||0)}</span>
+          <span class="vcard-stat"> ${fmtNum(v.views||0)}</span>
+          <span class="vcard-stat">️ ${fmtNum(v.likes||0)}</span>
           <span class="vcard-stat"> ${fmtNum(v.comments||0)}</span>
           ${v.shares ? `<span class="vcard-stat">↗ ${fmtNum(v.shares)}</span>` : ''}
           ${v.author ? `<span class="vcard-author">@${esc(v.author)}</span>` : ''}
@@ -2059,12 +2059,12 @@ function categorizeVideo(caption, hashtags, sound) {
 
 const CATEGORY_LABELS = {
   concert: { label: 'Concert & Show', color: '#e8437a', emoji: '' },
-  outfit: { label: 'Outfit & Fashion', color: '#ff6ba8', emoji: '👗' },
+  outfit: { label: 'Outfit & Fashion', color: '#ff6ba8', emoji: '' },
   lyrics: { label: 'Lyrics & Sounds', color: '#c97ba8', emoji: '' },
-  reaction: { label: 'Fan Reactions', color: '#a855a0', emoji: '😭' },
-  edit: { label: 'Edits & FYP', color: '#7b5ea7', emoji: '✨' },
-  meetgreet: { label: 'Meet & Greet', color: '#e8437a', emoji: '🤝' },
-  general: { label: 'General', color: '#5a3d48', emoji: '📱' }
+  reaction: { label: 'Fan Reactions', color: '#a855a0', emoji: '' },
+  edit: { label: 'Edits & FYP', color: '#7b5ea7', emoji: '' },
+  meetgreet: { label: 'Meet & Greet', color: '#e8437a', emoji: '' },
+  general: { label: 'General', color: '#5a3d48', emoji: '' }
 };
 
 function processVideos(rawVideos) {
@@ -2236,7 +2236,7 @@ ${JSON.stringify(allData, null, 2)}
 Be specific, direct, and strategic. This is for professional music industry use. Reference specific captions, sounds, and video examples where possible.`;
 
   navigator.clipboard.writeText(prompt).then(() => {
-    document.getElementById('copyStatus').textContent = '✓ Copied! Paste into Claude.ai';
+    document.getElementById('copyStatus').textContent = ' Copied! Paste into Claude.ai';
     setTimeout(() => document.getElementById('copyStatus').textContent = '', 3000);
   });
 }
@@ -2256,7 +2256,7 @@ function applyAnalysis() {
   renderMain();
 
   document.getElementById('analysisInput').value = '';
-  setRunStatus('Analysis applied ✓', 'done');
+  setRunStatus('Analysis applied ', 'done');
 }
 
 function parseAnalysisText(text, cityName) {
@@ -2331,7 +2331,7 @@ if (lastRun) document.getElementById('lastRunDisplay').innerHTML = `Last synced 
 
     <div class="tickets-topbar">
       <div>
-        <div class="tickets-title"><em>Wishbone World Tour</em> · Ticket Sales</div>
+        <div class="tickets-title">Ticket Counts</div>
         <div class="tickets-as-of" id="tktAsOf">Upload a sales file to get started</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -2367,7 +2367,7 @@ if (lastRun) document.getElementById('lastRunDisplay').innerHTML = `Last synced 
 
     <div class="upload-drop-zone" id="tktDropZone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleTktDrop(event)">
       
-      <p>Drop your weekly <strong style="color:var(--ink2);">Ticket Sales .xlsx</strong> here<br>or <span onclick="document.getElementById('tktFileInput').click()">click to browse</span></p>
+      <p>Drop your weekly <strong style="color:var(--ink2);">Ticket Counts .xlsx</strong> here<br>or <span onclick="document.getElementById('tktFileInput').click()">click to browse</span></p>
       <p style="font-size:11px;margin-top:8px;">Works with the same file format week over week — just upload the latest version</p>
     </div>
 
@@ -2640,7 +2640,7 @@ function renderTktTable() {
   <div class="spotify-layout">
     <div class="spotify-topbar">
       <div>
-        <div class="spotify-title"><em>Spotify</em> · Conan Gray</div>
+        <div class="spotify-title"><em>Spotify</div>
         <div class="spotify-fetched" id="spotifyFetched">Click refresh to load data</div>
       </div>
       <button class="spotify-refresh-btn" onclick="loadSpotify()">↻ Refresh</button>
@@ -2662,7 +2662,7 @@ let spotifyData = null;
 
 async function loadSpotify() {
   const btn = document.querySelector('.spotify-refresh-btn');
-  btn.textContent = '⟳ Loading...';
+  btn.textContent = ' Loading...';
   btn.disabled = true;
 
   try {
@@ -2768,7 +2768,7 @@ function renderSpotify() {
 <div id="view-pulse" style="display:none;">
   <div class="pulse-layout">
     <div class="pulse-topbar">
-      <div class="pulse-title"><em>Tour Pulse</em></div>
+      <div class="pulse-title">Tour Pulse</div>
       <div class="pulse-meta" id="pulseMeta">Sync cities in Tour Hub to see data</div>
     </div>
     <div id="pulseContent">
