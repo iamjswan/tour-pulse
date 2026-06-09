@@ -6,7 +6,7 @@
 <title>Live From The Internet — Conan Gray</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --cream: #edeade;
@@ -47,12 +47,12 @@ body {
 }
 .header-left { display: flex; align-items: baseline; gap: 1rem; }
 .wordmark {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 300;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--ink);
-  letter-spacing: 0.04em;
-  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 .wordmark em { font-style: normal; color: var(--rose); font-weight: 400; }
 .header-tag {
@@ -213,7 +213,7 @@ body {
   padding: 1.1rem 1.25rem;
 }
 .stat-label { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink4); margin-bottom: 8px; font-weight: 700; }
-.stat-value { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--ink); font-weight: 900; }
+.stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 32px; color: var(--ink); font-weight: 900; }
 .stat-sub { font-size: 10px; color: var(--ink4); margin-top: 4px; letter-spacing: 0.06em; }
 
 /* City view */
@@ -223,7 +223,7 @@ body {
   justify-content: space-between;
   margin-bottom: 1.5rem;
 }
-.city-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--ink); font-weight: 300; font-style: italic; }
+.city-title { font-family: 'Space Grotesk', sans-serif; font-size: 32px; color: var(--ink); font-weight: 300; font-style: normal; }
 .city-title em { font-style: normal; color: var(--rose); }
 .city-date { font-size: 11px; color: var(--ink4); letter-spacing: 0.04em; }
 
@@ -259,7 +259,7 @@ body {
   gap: 12px;
 }
 .song-rank {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 26px;
   color: var(--ink4);
   min-width: 28px;
@@ -347,7 +347,7 @@ body {
 .video-caption { font-size: 13px; color: var(--ink2); line-height: 1.5; margin-bottom: 6px; }
 .video-meta { display: flex; gap: 12px; }
 .video-stat { font-size: 11px; color: var(--ink4); }
-.video-sound { font-size: 11px; color: var(--rose); font-style: italic; }
+.video-sound { font-size: 11px; color: var(--rose); font-style: normal; }
 
 /* Cross-city */
 .cross-city-table { width: 100%; border-collapse: collapse; }
@@ -376,7 +376,16 @@ body {
   color: var(--ink4);
 }
 .empty-icon { font-size: 40px; margin-bottom: 1rem; }
-.empty-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--ink3); margin-bottom: 8px; font-style: italic; font-weight: 300; }
+.empty-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: var(--ink2);
+  margin-bottom: 8px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 .empty-body { font-size: 12px; line-height: 1.6; max-width: 340px; margin: 0 auto; color: var(--ink4); }
 
 /* Modal */
@@ -396,7 +405,7 @@ body {
   width: 90%;
   border: 1px solid var(--border);
 }
-.modal h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 6px; font-style: italic; font-weight: 300; color: var(--ink); }
+.modal h2 { font-family: 'Space Grotesk', sans-serif; font-size: 24px; margin-bottom: 6px; font-style: normal; font-weight: 300; color: var(--ink); }
 .modal p { font-size: 13px; color: var(--ink4); margin-bottom: 1.25rem; line-height: 1.6; }
 .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
 .btn-secondary {
@@ -495,7 +504,7 @@ body {
 .vcard-sound {
   font-size: 11px;
   color: var(--rose);
-  font-style: italic;
+  font-style: normal;
   margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
@@ -623,7 +632,7 @@ body {
   padding: 1rem 1.1rem;
 }
 .action-num {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 22px;
   color: var(--rose);
   font-weight: 300;
@@ -648,7 +657,7 @@ body {
 .report-video-caption { font-size: 12px; color: var(--ink2); line-height: 1.5; margin-bottom: 5px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .report-video-meta { display: flex; gap: 10px; }
 .report-video-stat { font-size: 11px; color: var(--ink4); }
-.report-video-sound { font-size: 11px; color: var(--rose); font-style: italic; }
+.report-video-sound { font-size: 11px; color: var(--rose); font-style: normal; }
 .sounds-list { display: flex; flex-direction: column; gap: 6px; }
 .sound-row { display: flex; align-items: center; gap: 10px; }
 .sound-name { font-size: 13px; color: var(--ink2); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -672,13 +681,13 @@ body {
 }
 .gen-report-btn:hover { opacity: 0.85; }
 .no-reports-empty { text-align: center; padding: 4rem 2rem; color: var(--ink4); }
-.no-reports-empty .empty-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ink3); margin-bottom: 8px; font-style: italic; }
+.no-reports-empty .empty-title { font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: var(--ink3); margin-bottom: 8px; font-style: normal; }
 .no-reports-empty .empty-body { font-size: 12px; line-height: 1.7; max-width: 300px; margin: 0 auto; }
 
 /* ── Tickets tab ──────────────────────────────── */
 .tickets-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
 .tickets-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
-.tickets-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: italic; }
+.tickets-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: normal; }
 .tickets-title em { font-style: normal; color: var(--rose); }
 .tickets-as-of { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
 .tickets-as-of span { color: var(--sage); }
@@ -753,21 +762,30 @@ body {
   text-align: center; width: 100%; max-width: 220px;
 }
 .gate-wordmark {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 8px; font-weight: 700;
-  color: #111; letter-spacing: 0.28em; margin-bottom: 0.75rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   display: inline-block;
-  border: 1px solid #111;
-  padding: 3px 8px 2px;
 }
 .gate-sub { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(0,0,0,0.28); margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif; }
 .gate-input {
-  width: 130px; background: transparent;
-  border: none; border-bottom: 1px solid rgba(0,0,0,0.15);
-  padding: 5px 0; font-size: 12px; color: #111;
-  font-family: 'Space Grotesk', sans-serif; outline: none;
-  text-align: center; letter-spacing: 0.12em; margin-bottom: 10px; font-weight: 500;
+  width: 130px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  padding: 5px 0;
+  font-size: 12px;
+  color: #c8341a;
+  font-family: 'Space Grotesk', sans-serif;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 .gate-input::placeholder { color: rgba(0,0,0,0.2); }
 .gate-btn {
@@ -786,8 +804,8 @@ body {
 /* ── Spotify tab ─────────────────────────────────── */
 .spotify-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
 .spotify-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
-.spotify-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: italic; }
-.spotify-title em { font-style: normal; color: #1db954; }
+.spotify-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: normal; }
+.spotify-title em { font-style: normal; color: var(--gold); }
 .spotify-fetched { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
 .spotify-fetched span { color: var(--sage); }
 .spotify-refresh-btn {
@@ -797,41 +815,41 @@ body {
   letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3);
   cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.15s;
 }
-.spotify-refresh-btn:hover { border-color: #1db954; color: #1db954; }
+.spotify-refresh-btn:hover { border-color: var(--gold); color: var(--gold); }
 .spotify-artist-card {
   display: flex; align-items: center; gap: 1.5rem;
-  background: rgba(29,185,84,0.06); border: 1px solid rgba(29,185,84,0.2);
+  background: white; border: 1px solid var(--border);
   border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
 }
 .spotify-artist-img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: var(--border); }
-.spotify-artist-name { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--ink); font-weight: 300; font-style: italic; }
+.spotify-artist-name { font-family: 'Space Grotesk', sans-serif; font-size: 24px; color: var(--ink); font-weight: 300; font-style: normal; }
 .spotify-artist-meta { font-size: 12px; color: var(--ink4); margin-top: 4px; letter-spacing: 0.04em; }
-.spotify-artist-meta span { color: #1db954; font-weight: 600; }
+.spotify-artist-meta span { color: var(--gold); font-weight: 600; }
 .spotify-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 .spotify-section-title {
   font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: #1db954; font-weight: 600; margin-bottom: 12px;
-  padding-bottom: 8px; border-bottom: 1px solid rgba(29,185,84,0.15);
+  color: var(--gold); font-weight: 600; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
 }
 .track-item {
   display: flex; align-items: center; gap: 12px;
   padding: 8px 0; border-bottom: 1px solid var(--border2);
 }
 .track-item:last-child { border-bottom: none; }
-.track-rank { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--ink4); min-width: 24px; font-weight: 300; }
+.track-rank { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink4); min-width: 24px; font-weight: 300; }
 .track-img { width: 36px; height: 36px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--border); }
 .track-info { flex: 1; min-width: 0; }
 .track-name { font-size: 13px; color: var(--ink2); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .track-album { font-size: 11px; color: var(--ink4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .track-pop-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .track-pop-bar { width: 48px; height: 3px; background: var(--border2); border-radius: 2px; }
-.track-pop-fill { height: 100%; border-radius: 2px; background: #1db954; }
+.track-pop-fill { height: 100%; border-radius: 2px; background: var(--gold); }
 .track-pop-num { font-size: 10px; color: var(--ink4); min-width: 24px; text-align: right; }
-.track-link { font-size: 10px; color: #1db954; text-decoration: none; flex-shrink: 0; opacity: 0.7; }
+.track-link { font-size: 10px; color: var(--gold); text-decoration: none; flex-shrink: 0; opacity: 0.7; }
 .track-link:hover { opacity: 1; }
 .pop-meter { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
 .pop-bar-full { flex: 1; height: 4px; background: var(--border2); border-radius: 2px; }
-.pop-bar-full-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #1db954, #1ed760); }
+.pop-bar-full-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--gold), var(--sage)); }
 .spotify-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
 .spotify-tiktok-section {
   background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.2);
@@ -845,7 +863,7 @@ body {
 .correlation-row:last-child { border-bottom: none; }
 .correlation-song { font-size: 13px; color: var(--ink2); flex: 1; }
 .correlation-tiktok { font-size: 11px; color: var(--rose); }
-.correlation-spotify { font-size: 11px; color: #1db954; }
+.correlation-spotify { font-size: 11px; color: var(--gold); }
 
 
 </style>
@@ -866,7 +884,7 @@ body {
 
 <div class="header">
   <div class="header-left">
-    <div class="wordmark"><div class="wordmark-box">Coneworld Internal</div></div>
+    <div class="wordmark">Coneworld Internal</div>
     
   </div>
   <div class="last-run" id="lastRunDisplay">Never synced</div>
@@ -1159,7 +1177,7 @@ function renderReportDetail(gen) {
     : '<span style="color:var(--ink4);font-size:12px;">None detected</span>';
 
   const demandHTML = gen.demandSongs.length
-    ? gen.demandSongs.map(s => `<span class="pill sage">🎵 ${esc(s)}</span>`).join('')
+    ? gen.demandSongs.map(s => `<span class="pill sage"> ${esc(s)}</span>`).join('')
     : '<span style="color:var(--ink4);font-size:12px;">No specific song demand detected</span>';
 
   // Auto-generate action items based on data
@@ -1237,13 +1255,13 @@ function renderReportDetail(gen) {
       <div class="report-section-title">Twitter / X — ${gen.twitter.totalTweets} tweets</div>
       <div class="trend-pills" style="margin-bottom:12px;">
         ${Object.entries(gen.twitter.sentimentCounts).sort((a,b)=>b[1]-a[1]).map(([key,count]) => {
-          const SENT = {love:{label:'Positive',color:'#e8437a',emoji:'🩷'},setlist:{label:'Setlist',color:'#c97ba8',emoji:'🎵'},fashion:{label:'Fashion',color:'#ff6ba8',emoji:'👗'},hype:{label:'Hype',color:'#f5a623',emoji:'🔥'},negative:{label:'Negative',color:'#e05454',emoji:'👎'},general:{label:'General',color:'#5a3d48',emoji:'💬'}};
+          const SENT = {love:{label:'Positive',color:'#e8437a',emoji:'🩷'},setlist:{label:'Setlist',color:'#c97ba8',emoji:''},fashion:{label:'Fashion',color:'#ff6ba8',emoji:'👗'},hype:{label:'Hype',color:'#f5a623',emoji:''},negative:{label:'Negative',color:'#e05454',emoji:'👎'},general:{label:'General',color:'#5a3d48',emoji:''}};
           const m = SENT[key] || SENT.general;
           const pct = Math.round(count/gen.twitter.totalTweets*100);
           return `<span class="pill" style="background:${m.color}15;border-color:${m.color}33;color:${m.color}">${m.emoji} ${m.label} <span class="pill-count">${pct}%</span></span>`;
         }).join('')}
       </div>
-      ${gen.twitter.topSongMentions.length ? `<div class="trend-pills" style="margin-bottom:12px;">${gen.twitter.topSongMentions.map(([s,c]) => `<span class="pill sage">🎵 ${esc(s)} <span class="pill-count">${c}</span></span>`).join('')}</div>` : ''}
+      ${gen.twitter.topSongMentions.length ? `<div class="trend-pills" style="margin-bottom:12px;">${gen.twitter.topSongMentions.map(([s,c]) => `<span class="pill sage"> ${esc(s)} <span class="pill-count">${c}</span></span>`).join('')}</div>` : ''}
       <div class="top-videos-grid">
         ${gen.twitter.topTweets.map(t => `<div class="report-video">
           <div class="report-video-left">
@@ -1429,7 +1447,7 @@ function renderMain() {
   const main = document.getElementById('mainContent');
 
   if (state.cities.length === 0) {
-    main.innerHTML = `<div class="empty"><div class="empty-icon">🎤</div><div class="empty-title">No tour stops yet</div><div class="empty-body">Import the Wishbone World Tour or add cities to get started.</div></div>`;
+    main.innerHTML = `<div class="empty"><div class="empty-title">No tour stops yet</div><div class="empty-body">Import the Wishbone World Tour or add cities to get started.</div></div>`;
     return;
   }
 
@@ -1558,11 +1576,11 @@ function renderTwitterPanel(cityId) {
 
   const SENT_LABELS = {
     love: { label: 'Positive', color: '#e8437a', emoji: '🩷' },
-    setlist: { label: 'Setlist talk', color: '#c97ba8', emoji: '🎵' },
+    setlist: { label: 'Setlist talk', color: '#c97ba8', emoji: '' },
     fashion: { label: 'Fashion', color: '#ff6ba8', emoji: '👗' },
-    hype: { label: 'Hype & tickets', color: '#f5a623', emoji: '🔥' },
+    hype: { label: 'Hype & tickets', color: '#f5a623', emoji: '' },
     negative: { label: 'Negative', color: '#e05454', emoji: '👎' },
-    general: { label: 'General', color: '#5a3d48', emoji: '💬' }
+    general: { label: 'General', color: '#5a3d48', emoji: '' }
   };
 
   const sentimentHTML = Object.entries(tw.sentimentCounts).sort((a,b) => b[1]-a[1]).map(([key, count]) => {
@@ -1572,7 +1590,7 @@ function renderTwitterPanel(cityId) {
   }).join('');
 
   const songMentionsHTML = tw.topSongMentions.length
-    ? tw.topSongMentions.map(([song, count]) => `<span class="pill sage">🎵 ${esc(song)} <span class="pill-count">${count}</span></span>`).join('')
+    ? tw.topSongMentions.map(([song, count]) => `<span class="pill sage"> ${esc(song)} <span class="pill-count">${count}</span></span>`).join('')
     : '<span style="color:var(--ink4);font-size:12px;">No specific songs mentioned</span>';
 
   const topSent = Object.entries(tw.sentimentCounts).sort((a,b)=>b[1]-a[1])[0];
@@ -1591,7 +1609,7 @@ function renderTwitterPanel(cityId) {
           ${t.author ? `<span class="vcard-author" style="margin-left:0;">@${esc(t.author)}</span>` : ''}
           <span class="vcard-stat">❤️ ${fmtNum(t.likes||0)}</span>
           <span class="vcard-stat">🔁 ${fmtNum(t.retweets||0)}</span>
-          ${t.replies ? `<span class="vcard-stat">💬 ${fmtNum(t.replies)}</span>` : ''}
+          ${t.replies ? `<span class="vcard-stat"> ${fmtNum(t.replies)}</span>` : ''}
         </div>
       </div>
       <div class="vcard-right">
@@ -1653,7 +1671,7 @@ function renderFeedPanel(report) {
         <div class="vcard-meta">
           <span class="vcard-stat">👁 ${fmtNum(v.views||0)}</span>
           <span class="vcard-stat">❤️ ${fmtNum(v.likes||0)}</span>
-          <span class="vcard-stat">💬 ${fmtNum(v.comments||0)}</span>
+          <span class="vcard-stat"> ${fmtNum(v.comments||0)}</span>
           ${v.shares ? `<span class="vcard-stat">↗ ${fmtNum(v.shares)}</span>` : ''}
           ${v.author ? `<span class="vcard-author">@${esc(v.author)}</span>` : ''}
         </div>
@@ -2040,9 +2058,9 @@ function categorizeVideo(caption, hashtags, sound) {
 }
 
 const CATEGORY_LABELS = {
-  concert: { label: 'Concert & Show', color: '#e8437a', emoji: '🎤' },
+  concert: { label: 'Concert & Show', color: '#e8437a', emoji: '' },
   outfit: { label: 'Outfit & Fashion', color: '#ff6ba8', emoji: '👗' },
-  lyrics: { label: 'Lyrics & Sounds', color: '#c97ba8', emoji: '🎵' },
+  lyrics: { label: 'Lyrics & Sounds', color: '#c97ba8', emoji: '' },
   reaction: { label: 'Fan Reactions', color: '#a855a0', emoji: '😭' },
   edit: { label: 'Edits & FYP', color: '#7b5ea7', emoji: '✨' },
   meetgreet: { label: 'Meet & Greet', color: '#e8437a', emoji: '🤝' },
@@ -2348,7 +2366,7 @@ if (lastRun) document.getElementById('lastRunDisplay').innerHTML = `Last synced 
     </div>
 
     <div class="upload-drop-zone" id="tktDropZone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleTktDrop(event)">
-      <div style="font-size:28px;margin-bottom:12px;">📊</div>
+      
       <p>Drop your weekly <strong style="color:var(--ink2);">Ticket Sales .xlsx</strong> here<br>or <span onclick="document.getElementById('tktFileInput').click()">click to browse</span></p>
       <p style="font-size:11px;margin-top:8px;">Works with the same file format week over week — just upload the latest version</p>
     </div>
@@ -2630,7 +2648,7 @@ function renderTktTable() {
 
     <div id="spotifyContent">
       <div class="empty" style="padding:4rem 2rem;">
-        <div class="empty-icon">🎵</div>
+        
         <div class="empty-title">No data loaded</div>
         <div class="empty-body">Click Refresh to pull Conan's current Spotify data.</div>
       </div>
@@ -2731,12 +2749,12 @@ function renderSpotify() {
 
   const correlationHTML = Object.keys(syncedSongs).length ? `
     <div class="spotify-tiktok-section">
-      <div class="spotify-tiktok-title">🎵 TikTok × Spotify — Songs appearing in both</div>
+      <div class="spotify-tiktok-title"> TikTok × Spotify — Songs appearing in both</div>
       ${Object.entries(syncedSongs).sort((a,b) => b[1]-a[1]).map(([song, count]) => {
         const track = topTracks.find(t => t.name === song);
         return `<div class="correlation-row">
           <div class="correlation-song">${esc(song)}</div>
-          <div class="correlation-tiktok">🎵 ${count} TikTok video${count !== 1 ? 's' : ''}</div>
+          <div class="correlation-tiktok"> ${count} TikTok video${count !== 1 ? 's' : ''}</div>
           ${track ? `<div class="correlation-spotify">Spotify pop. ${track.popularity}</div>` : ''}
         </div>`;
       }).join('')}
@@ -2755,7 +2773,7 @@ function renderSpotify() {
     </div>
     <div id="pulseContent">
       <div class="empty" style="padding:4rem 2rem;">
-        <div class="empty-icon">✦</div>
+        
         <div class="empty-title">No data yet</div>
         <div class="empty-body">Sync at least one city in Tour Hub to see the Pulse view.</div>
       </div>
