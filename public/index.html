@@ -895,7 +895,7 @@ body {
   <div class="top-nav-btn" id="nav-pulse" onclick="switchView('pulse')">Pulse</div>
   <div class="top-nav-btn" id="nav-reports" onclick="switchView('reports')">Reports</div>
   <div class="top-nav-btn" id="nav-tickets" onclick="switchView('tickets')">Tickets</div>
-  <div class="top-nav-btn" id="nav-spotify" onclick="switchView('spotify')">Spotify</div>
+  <div class="top-nav-btn" id="nav-streaming" onclick="switchView('streaming')">Streaming</div>
 </div>
 
 
@@ -996,16 +996,16 @@ function switchView(view) {
   document.getElementById('view-pulse').style.display = view === 'pulse' ? 'block' : 'none';
   document.getElementById('view-reports').style.display = view === 'reports' ? 'block' : 'none';
   document.getElementById('view-tickets').style.display = view === 'tickets' ? 'block' : 'none';
-  document.getElementById('view-spotify').style.display = view === 'spotify' ? 'block' : 'none';
+  document.getElementById('view-spotify').style.display = view === 'streaming' ? 'block' : 'none';
   document.getElementById('nav-hub').classList.toggle('active', view === 'hub');
   document.getElementById('nav-pulse').classList.toggle('active', view === 'pulse');
   document.getElementById('nav-reports').classList.toggle('active', view === 'reports');
   document.getElementById('nav-tickets').classList.toggle('active', view === 'tickets');
-  document.getElementById('nav-spotify').classList.toggle('active', view === 'spotify');
+  document.getElementById('nav-streaming').classList.toggle('active', view === 'streaming');
   if (view === 'reports') renderReportsList();
   if (view === 'pulse') renderPulse();
   if (view === 'tickets') renderTicketsView();
-  if (view === 'spotify') loadSpotify();
+  if (view === 'streaming') loadStreaming();
 }
 
 function generateReport(cityId) {
@@ -2636,9 +2636,9 @@ function renderTktTable() {
 })();
 </script>
 
-<div id="view-spotify" style="display:none;">
-  <div class="spotify-layout">
-    <div class="spotify-topbar">
+<div id="view-streaming" style="display:none;">
+  <div style="padding:2rem 2.5rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;">
       <div>
         <div class="spotify-title"><em>Spotify</div>
         <div class="spotify-fetched" id="spotifyFetched">Click refresh to load data</div>
@@ -2646,7 +2646,7 @@ function renderTktTable() {
       <button class="spotify-refresh-btn" onclick="loadSpotify()">↻ Refresh</button>
     </div>
 
-    <div id="spotifyContent">
+    <div id="streamingContent">
       <div class="empty" style="padding:4rem 2rem;">
         
         <div class="empty-title">No data loaded</div>
@@ -2660,108 +2660,84 @@ function renderTktTable() {
 // ── Spotify tab ──────────────────────────────────────────────────────────────
 let spotifyData = null;
 
-async function loadSpotify() {
-  const btn = document.querySelector('.spotify-refresh-btn');
-  btn.textContent = ' Loading...';
-  btn.disabled = true;
+async function loadStreaming() {
+  const meta = document.getElementById('streamingMeta');
+  const contentEl = document.getElementById('streamingContent');
+  if (!meta || !contentEl) return;
+  meta.textContent = 'loading...';
 
   try {
-    const resp = await fetch('/api/spotify');
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    spotifyData = await resp.json();
-    renderSpotify();
-    const fetched = new Date(spotifyData.fetchedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
-    document.getElementById('spotifyFetched').innerHTML = `Last refreshed <span>${fetched}</span>`;
-  } catch (err) {
-    document.getElementById('spotifyContent').innerHTML = `<div class="empty"><div class="empty-body" style="color:#e57373;">Error loading Spotify data: ${err.message}</div></div>`;
-  } finally {
-    btn.textContent = '↻ Refresh';
-    btn.disabled = false;
-  }
-}
+    const LASTFM_KEY = 'dbc59658b9ece1b0f58abd5ce5e8e7f0';
+    const artist = 'Conan Gray';
 
-function renderSpotify() {
-  if (!spotifyData) return;
-  const { artist, topTracks, albums } = spotifyData;
+    const [topTracksResp, artistInfoResp, similarResp] = await Promise.all([
+      fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${encodeURIComponent(artist)}&api_key=${LASTFM_KEY}&format=json&limit=10`),
+      fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(artist)}&api_key=${LASTFM_KEY}&format=json`),
+      fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${encodeURIComponent(artist)}&api_key=${LASTFM_KEY}&format=json&limit=5`)
+    ]);
 
-  // Artist card
-  const artistHTML = `
-    <div class="spotify-artist-card">
-      ${artist.image ? `<img class="spotify-artist-img" src="${artist.image}" alt="${esc(artist.name)}" />` : ''}
-      <div>
-        <div class="spotify-artist-name">${esc(artist.name)}</div>
-        <div class="spotify-artist-meta">
-          <span>${fmtNum(artist.followers)}</span> followers &nbsp;·&nbsp;
-          Popularity <span>${artist.popularity}/100</span> &nbsp;·&nbsp;
-          ${artist.genres?.slice(0,2).map(g => esc(g)).join(', ')}
-        </div>
-        <div class="pop-meter" style="margin-top:8px;max-width:200px;">
-          <div class="pop-bar-full"><div class="pop-bar-full-fill" style="width:${artist.popularity}%"></div></div>
-          <span style="font-size:10px;color:var(--ink4);">${artist.popularity}%</span>
-        </div>
+    const topTracksData = await topTracksResp.json();
+    const artistInfoData = await artistInfoResp.json();
+    const similarData = await similarResp.json();
+
+    const tracks = topTracksData?.toptracks?.track || [];
+    const info = artistInfoData?.artist || {};
+    const similar = similarData?.similarartists?.artist || [];
+
+    const listeners = parseInt(info?.stats?.listeners || 0);
+    const playcount = parseInt(info?.stats?.playcount || 0);
+    const maxPlays = tracks[0] ? parseInt(tracks[0].playcount) : 1;
+
+    meta.textContent = 'last.fm · updated now';
+
+    let html = '';
+
+    html += `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:2rem;">
+      <div style="background:white;border:1px solid var(--border);padding:1.1rem 1.25rem;">
+        <div style="font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px;font-weight:700;">Listeners</div>
+        <div style="font-size:28px;font-weight:700;color:var(--ink);">${fmtNum(listeners)}</div>
+        <div style="font-size:10px;color:var(--ink4);margin-top:4px;">last.fm</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);padding:1.1rem 1.25rem;">
+        <div style="font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px;font-weight:700;">Total Plays</div>
+        <div style="font-size:28px;font-weight:700;color:var(--ink);">${fmtNum(playcount)}</div>
+        <div style="font-size:10px;color:var(--ink4);margin-top:4px;">all time</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);padding:1.1rem 1.25rem;">
+        <div style="font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px;font-weight:700;">Top Track</div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink);line-height:1.2;">${esc(tracks[0]?.name || "—")}</div>
+        <div style="font-size:10px;color:var(--ink4);margin-top:4px;">${fmtNum(parseInt(tracks[0]?.playcount || 0))} plays</div>
       </div>
     </div>
-  `;
-
-  // Summary stats
-  const statsHTML = `
-    <div class="spotify-stat-grid">
-      <div class="stat-card"><div class="stat-label">Followers</div><div class="stat-value">${fmtNum(artist.followers)}</div><div class="stat-sub">Spotify followers</div></div>
-      <div class="stat-card"><div class="stat-label">Popularity</div><div class="stat-value">${artist.popularity}</div><div class="stat-sub">out of 100</div></div>
-      <div class="stat-card"><div class="stat-label">Top track pop.</div><div class="stat-value">${topTracks?.[0]?.popularity || '—'}</div><div class="stat-sub">${esc(topTracks?.[0]?.name || '')}</div></div>
-    </div>
-  `;
-
-  // Top tracks
-  const tracksHTML = `
-    <div>
-      <div class="spotify-section-title">Top Tracks — US</div>
-      ${(topTracks || []).map((t, i) => `
-        <div class="track-item">
-          <div class="track-rank">${i+1}</div>
-          ${t.albumImage ? `<img class="track-img" src="${t.albumImage}" alt="" />` : '<div class="track-img"></div>'}
-          <div class="track-info">
-            <div class="track-name">${esc(t.name)}</div>
-            <div class="track-album">${esc(t.album)}</div>
+    <div style="margin-bottom:2rem;">
+      <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);">Top Tracks</div>
+      ${tracks.map((t, i) => {
+        const plays = parseInt(t.playcount || 0);
+        const pct = Math.round(plays / maxPlays * 100);
+        return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border2);">
+          <div style="font-size:14px;color:var(--ink4);min-width:20px;font-weight:700;">${i+1}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;color:var(--ink2);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(t.name)}</div>
+            <div style="height:2px;background:var(--border2);border-radius:1px;margin-top:6px;"><div style="width:${pct}%;height:100%;background:var(--ink3);border-radius:1px;"></div></div>
           </div>
-          <div class="track-pop-wrap">
-            <div class="track-pop-bar"><div class="track-pop-fill" style="width:${t.popularity}%"></div></div>
-            <div class="track-pop-num">${t.popularity}</div>
-          </div>
-          ${t.spotifyUrl ? `<a href="${t.spotifyUrl}" target="_blank" rel="noopener" class="track-link">▶</a>` : ''}
-        </div>
-      `).join('')}
-    </div>
-  `;
-
-  // TikTok correlation — cross-reference with synced data
-  const syncedSongs = {};
-  Object.values(state.reports || {}).forEach(report => {
-    (report.videos || []).forEach(v => {
-      const sound = (v.sound || '').toLowerCase();
-      (topTracks || []).forEach(t => {
-        if (sound.includes(t.name.toLowerCase())) {
-          syncedSongs[t.name] = (syncedSongs[t.name] || 0) + 1;
-        }
-      });
-    });
-  });
-
-  const correlationHTML = Object.keys(syncedSongs).length ? `
-    <div class="spotify-tiktok-section">
-      <div class="spotify-tiktok-title"> TikTok × Spotify — Songs appearing in both</div>
-      ${Object.entries(syncedSongs).sort((a,b) => b[1]-a[1]).map(([song, count]) => {
-        const track = topTracks.find(t => t.name === song);
-        return `<div class="correlation-row">
-          <div class="correlation-song">${esc(song)}</div>
-          <div class="correlation-tiktok"> ${count} TikTok video${count !== 1 ? 's' : ''}</div>
-          ${track ? `<div class="correlation-spotify">Spotify pop. ${track.popularity}</div>` : ''}
+          <div style="font-size:11px;color:var(--ink4);min-width:70px;text-align:right;">${fmtNum(plays)}</div>
+          <a href="${t.url}" target="_blank" rel="noopener" style="font-size:10px;color:var(--gold);text-decoration:none;">view</a>
         </div>`;
-      }).join('')}
+      }).join("")}
     </div>
-  ` : '';
+    ${similar.length ? `<div style="margin-bottom:2rem;">
+      <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink4);font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);">Similar Artists</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${similar.map(a => `<span style="font-size:12px;padding:5px 12px;border:1px solid var(--border);color:var(--ink3);">${esc(a.name)}</span>`).join("")}
+      </div>
+    </div>` : ""}
+    <div style="font-size:10px;color:var(--ink4);margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border2);">data from last.fm · connect chartmetric for full streaming intelligence</div>`;
 
-  document.getElementById('spotifyContent').innerHTML = artistHTML + statsHTML + `<div class="spotify-grid">${tracksHTML}</div>` + correlationHTML;
+    contentEl.innerHTML = html;
+  } catch(err) {
+    contentEl.innerHTML = `<div style="text-align:center;padding:4rem;"><div style="font-size:12px;color:var(--rose);">error loading data: ${err.message}</div></div>`;
+    meta.textContent = 'error';
+  }
 }
 </script>
 
