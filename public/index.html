@@ -6,7 +6,7 @@
 <title>Live From The Internet — Conan Gray</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --cream: #edeade;
@@ -546,7 +546,7 @@ body {
   margin: 8px 4px;
 }
 .top-nav-btn:hover { color: var(--ink); border-color: var(--border); }
-.top-nav-btn.active { color: var(--ink); border-color: var(--ink); }
+.top-nav-btn.active { color: var(--rose); border-color: var(--rose); }
 
 /* Reports view */
 .reports-layout { display: grid; grid-template-columns: 320px 1fr; min-height: calc(100vh - 105px); }
@@ -588,7 +588,7 @@ body {
 
 /* Report detail */
 .report-header { margin-bottom: 2rem; }
-.report-city-title { font-family: 'Playfair Display', serif; font-size: 36px; font-style: italic; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+.report-city-title { font-family: 'Bebas Neue', sans-serif; font-size: 44px; font-style: normal; font-weight: 400; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 4px; }
 .report-city-title em { font-style: normal; color: var(--rose); }
 .report-sub { font-size: 12px; color: var(--ink4); letter-spacing: 0.04em; }
 .report-section { margin-bottom: 2rem; }
@@ -866,8 +866,8 @@ body {
 
 <div class="header">
   <div class="header-left">
-    <div class="wordmark"><em>Live From The Internet</em> — it's Conan Gray</div>
-    <div class="header-tag">TikTok & Twitter Intelligence</div>
+    <div class="wordmark"><div class="wordmark-box">Coneworld Internal</div></div>
+    
   </div>
   <div class="last-run" id="lastRunDisplay">Never synced</div>
 </div>
@@ -912,7 +912,7 @@ body {
       <button class="btn-run" style="background:rgba(232,67,122,0.2);border:1px solid var(--rose);color:var(--rose);margin-bottom:8px;" onclick="switchView('reports')">View Reports →</button>
       <div id="copyStatus" style="font-size:11px;color:var(--sage);text-align:center;min-height:16px;margin-bottom:8px;"></div>
       <label style="font-size:11px;color:var(--ink3);display:block;margin-bottom:4px;">Paste Claude's analysis here:</label>
-      <textarea id="analysisInput" style="width:100%;height:100px;background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;resize:vertical;" placeholder="Paste Claude's response here..."></textarea>
+      <textarea id="analysisInput" style="width:100%;height:100px;background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;resize:vertical;" placeholder=""></textarea>
       <button class="btn-run" style="margin-top:6px;" onclick="applyAnalysis()">Apply Analysis</button>
     </div>
 
@@ -2313,7 +2313,7 @@ if (lastRun) document.getElementById('lastRunDisplay').innerHTML = `Last synced 
 
     <div class="tickets-topbar">
       <div>
-        <div class="tickets-title"><em>Wishbone World Tour</em> — Ticket Sales</div>
+        <div class="tickets-title"><em>Wishbone World Tour</em> · Ticket Sales</div>
         <div class="tickets-as-of" id="tktAsOf">Upload a sales file to get started</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -2622,7 +2622,7 @@ function renderTktTable() {
   <div class="spotify-layout">
     <div class="spotify-topbar">
       <div>
-        <div class="spotify-title"><em>Spotify</em> — Conan Gray</div>
+        <div class="spotify-title"><em>Spotify</em> · Conan Gray</div>
         <div class="spotify-fetched" id="spotifyFetched">Click refresh to load data</div>
       </div>
       <button class="spotify-refresh-btn" onclick="loadSpotify()">↻ Refresh</button>
@@ -2750,7 +2750,7 @@ function renderSpotify() {
 <div id="view-pulse" style="display:none;">
   <div class="pulse-layout">
     <div class="pulse-topbar">
-      <div class="pulse-title"><em>Tour Pulse</em> — what the internet is saying</div>
+      <div class="pulse-title"><em>Tour Pulse</em></div>
       <div class="pulse-meta" id="pulseMeta">Sync cities in Tour Hub to see data</div>
     </div>
     <div id="pulseContent">
