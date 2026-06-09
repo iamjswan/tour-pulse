@@ -7,6 +7,10 @@ export default async function handler(req, res) {
   const { query } = req.query;
   if (!query) return res.status(400).json({ error: 'query required' });
 
+  const auth = req.headers['x-auth-token'];
+  if (auth !== process.env.AUTH_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
   const RAPID_KEY = process.env.RAPIDAPI_KEY;
   if (!RAPID_KEY) return res.status(500).json({ error: 'API key not configured' });
 
