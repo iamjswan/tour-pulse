@@ -804,8 +804,8 @@ body {
 /* ── Spotify tab ─────────────────────────────────── */
 .spotify-layout { padding: 2rem 2.5rem; min-height: calc(100vh - 105px); }
 .spotify-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
-.spotify-title { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--ink); font-weight: 300; font-style: normal; }
-.spotify-title em { font-style: normal; color: var(--gold); }
+.spotify-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-style: normal; }
+
 .spotify-fetched { font-size: 11px; color: var(--ink4); letter-spacing: 0.06em; }
 .spotify-fetched span { color: var(--sage); }
 .spotify-refresh-btn {
@@ -2769,7 +2769,7 @@ function renderSpotify() {
   <div class="pulse-layout">
     <div class="pulse-topbar">
       <div class="pulse-title">Tour Pulse</div>
-      <div class="pulse-meta" id="pulseMeta">Sync cities in Tour Hub to see data</div>
+      <div class="pulse-meta" id="pulseMeta">sync cities in Tour Hub to see data</div>
     </div>
     <div id="pulseContent">
       <div class="empty" style="padding:4rem 2rem;">
